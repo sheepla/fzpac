@@ -2,7 +2,13 @@
 
 Arch Linux package finder with fzf
 
+<<<<<<< HEAD
 ## Usage
+=======
+<image src="./img/screenshot.png" width="70%">
+
+# Usage
+>>>>>>> b2cd0a3ca952e5f912402fa4c0375434695386f4
 
 ```
 USAGE
