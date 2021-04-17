@@ -2,6 +2,8 @@
 
 Arch Linux package finder with fzf
 
+<image src="./img/screenshot.png" width="70%">
+
 # Usage
 
 ```
