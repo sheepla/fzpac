@@ -1,0 +1,81 @@
+#!/bin/bash
+
+readonly THIS_CMD="${0##*/}"
+
+_help() {
+cat << EOF
+$THIS_CMD -- pacman package finder with fzf
+
+USAGE
+    $THIS_CMD SUBCMD KEYWORDS...
+
+SUBCMD
+    s, search     Search all available packages.
+    q, query      Search installed packages.
+    i, info       Search all available packages...
+                  and show detail information that you selected.
+    l, info-local Search installed packages...
+                  and show detail information that you selected.
+EOF
+
+}
+
+_main() {
+    # 引数なしのときはヘルプを出力して終了
+    if [[ $# -lt 1 ]]
+    then
+        _help
+        exit 0
+    fi
+
+    for arg in "$@"
+    do
+        case "$arg" in    
+        s|search)
+            shift
+            _select_available_pkgs "$@"
+            break
+            ;;
+        q|query)
+            shift
+            _select_local_pkgs "$@"
+            break
+            ;;
+        i|info)
+            shift
+            _select_available_pkgs "$@" | xargs -ro pacman -Sii
+            break
+            ;;
+        l|info-local)
+            shift
+            _select_local_pkgs "$@" | xargs -ro pacman -Qii
+            break 
+            ;;
+        h|-h|help|--help)
+            _help
+            break
+            ;;
+        *)
+            break
+            ;;
+        esac
+    done
+}
+
+_select_available_pkgs() {
+    pacman -Ssq "$@" |
+        fzf --multi \
+            --layout=reverse \
+            --preview 'cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")'
+}
+
+_select_local_pkgs() {
+    pacman -Qsq "$@" | 
+        fzf --multi \
+            --preview 'pacman -Qil {}' \
+            --layout=reverse
+}
+
+_main "$@"
+exit $?
+
