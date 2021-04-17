@@ -2,7 +2,7 @@
 
 Arch Linux package finder with fzf
 
-# Usage
+## Usage
 
 ```
 USAGE
@@ -17,7 +17,7 @@ SUBCMD
                   and show detail information that you selected.
 ```
 
-# Installation
+## Installation
 
 Require `fzf`.
 
@@ -28,6 +28,9 @@ Require `fzf`.
 sudo pacman -S fzf
 ```
 
+Just download and add execution permission.
+
 ```bash
 wget https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpac
 ```
+
