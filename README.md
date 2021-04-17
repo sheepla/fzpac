@@ -21,7 +21,7 @@ SUBCMD
 
 Require `fzf`.
 
-([https://github.com/junegunn/fzf]) [https://github.com/junegunn/fzf]
+<a href="https://github.com/junegunn/fzf">junegunn/fzf</a>
 
 ```bash
 # If you not installed fzf...
