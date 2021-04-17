@@ -17,11 +17,9 @@ SUBCMD
     l, info-local Search installed packages...
                   and show detail information that you selected.
 EOF
-
 }
 
 _main() {
-    # 引数なしのときはヘルプを出力して終了
     if [[ $# -lt 1 ]]
     then
         _help
