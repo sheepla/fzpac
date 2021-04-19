@@ -10,12 +10,14 @@ USAGE
     $THIS_CMD SUBCMD KEYWORDS...
 
 SUBCMD
-    s, search        Search all available packages.
-    q, search-local  Search installed packages.
-    i, info          Search all available packages...
+    s, search        Search all available packages and select.
+    q, search-local  Search installed packages and select.
+    i, info          Search all available packages,
                      and show detail information that you selected.
-    l, info-local    Search installed packages...
+    l, info-local    Search installed packages,
                      and show detail information that you selected.
+    S, install       Select packages and install that you selected.
+    R, remove        Select packages and uninstall that you selected.
     h, help          Show this usage.
 EOF
 }
@@ -50,6 +52,16 @@ _main() {
             _select_local_pkgs "$@" | xargs -ro pacman -Qii
             break 
             ;;
+        S|install)
+            shift
+            _select_available_pkgs "$@" | xargs -ro sudo pacman -S
+            break
+            ;;
+        R|remove)
+            shift 
+            _select_available_pkgs "$@" | xargs -ro sudo pacman -Rn
+            break
+            ;;
         h|-h|help|--help)
             _help
             break
@@ -69,15 +81,13 @@ _err() {
 _select_available_pkgs() {
     pacman -Ssq "$@" |
         fzf --multi \
-            --layout=reverse \
             --preview 'cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")'
 }
 
 _select_local_pkgs() {
     pacman -Qsq "$@" | 
         fzf --multi \
-            --preview 'pacman -Qil {}' \
-            --layout=reverse
+            --preview 'pacman -Qil {}'
 }
 
 _main "$@"
