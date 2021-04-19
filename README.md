@@ -7,16 +7,21 @@ Arch Linux package finder with fzf
 <image src="./img/screenshot.png" width="70%">
 
 ```
+fzpac -- pacman package finder with fzf
+
 USAGE
-    fzpac SUBCMD KEYWORD
+    fzpac SUBCMD KEYWORDS...
 
 SUBCMD
-    s, search     Search all available packages.
-    q, query      Search installed packages.
-    i, info       Search all available packages...
-                  and show detail information that you selected.
-    l, info-local Search installed packages...
-                  and show detail information that you selected.
+    s, search        Search all available packages and select.
+    q, search-local  Search installed packages and select.
+    i, info          Search all available packages,
+                     and show detail information that you selected.
+    l, info-local    Search installed packages,
+                     and show detail information that you selected.
+    S, install       Select packages and install that you selected.
+    R, remove        Select packages and uninstall that you selected.
+    h, help          Show this usage.
 ```
 
 ## Installation
