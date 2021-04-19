@@ -16,6 +16,7 @@ SUBCMD
                      and show detail information that you selected.
     l, info-local    Search installed packages...
                      and show detail information that you selected.
+    h, help          Show this usage.
 EOF
 }
 
