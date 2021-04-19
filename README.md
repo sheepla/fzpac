@@ -38,6 +38,10 @@ sudo pacman -S fzf
 Just download and add execution permission.
 
 ```bash
+# wget
 wget https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpac
+
+# curl
+curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpac
 ```
 
