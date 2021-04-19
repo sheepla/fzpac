@@ -10,12 +10,12 @@ USAGE
     $THIS_CMD SUBCMD KEYWORDS...
 
 SUBCMD
-    s, search     Search all available packages.
-    q, query      Search installed packages.
-    i, info       Search all available packages...
-                  and show detail information that you selected.
-    l, info-local Search installed packages...
-                  and show detail information that you selected.
+    s, search        Search all available packages.
+    q, search-local  Search installed packages.
+    i, info          Search all available packages...
+                     and show detail information that you selected.
+    l, info-local    Search installed packages...
+                     and show detail information that you selected.
 EOF
 }
 
@@ -34,7 +34,7 @@ _main() {
             _select_available_pkgs "$@"
             break
             ;;
-        q|query)
+        q|search-local)
             shift
             _select_local_pkgs "$@"
             break
@@ -54,10 +54,15 @@ _main() {
             break
             ;;
         *)
-            break
+            _err "Invalid sub command: $1"
+            return 1
             ;;
         esac
     done
+}
+
+_err() {
+    echo -e "[ \e[31mERR\e[m ] $@" >&2
 }
 
 _select_available_pkgs() {
