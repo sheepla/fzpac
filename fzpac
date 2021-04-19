@@ -57,7 +57,7 @@ _main() {
 			;;
 		R | remove)
 			shift
-			_select_available_pkgs "$@" | xargs -ro sudo pacman -Rn
+			_select_local_pkgs "$@" | xargs -ro sudo pacman -Rn
 			break
 			;;
 		h | -h | help | --help)
