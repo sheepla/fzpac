@@ -2,9 +2,15 @@
 
 Arch Linux package finder with fzf
 
+<image src="./img/screenshot.png" width="70%">
+
 ## Usage
 
-<image src="./img/screenshot.png" width="70%">
+When you run the command, the preview pane displays detailed package information and a list of files.
+Type keywords to narrow down your choices.
+Press `Ctrl+j` / `Ctrl+k` or `Ctrl+n` / `Ctrl+p` or cursor key to select the package.
+You can also select multiple packages by pressing the `Tab` key.
+Press `Enter` to confirm your selection.
 
 ```
 fzpac -- pacman package finder with fzf
@@ -23,6 +29,7 @@ SUBCMD
     R, remove        Select packages and uninstall that you selected.
     h, help          Show this usage.
 ```
+
 
 ## Installation
 
