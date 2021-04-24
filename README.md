@@ -38,7 +38,7 @@ Require `fzf`.
 <a href="https://github.com/junegunn/fzf">junegunn/fzf</a>
 
 ```bash
-# If you not installed fzf...
+# If you don't have installed fzf...
 sudo pacman -S fzf
 ```
 
