@@ -13,21 +13,38 @@ You can also select multiple packages by pressing the `Tab` key.
 Press `Enter` to confirm your selection.
 
 ```
-fzpac -- pacman package finder with fzf
+$THIS_CMD -- Arch Linux package finder with fzf
 
 USAGE
-    fzpac SUBCMD KEYWORDS...
+    $THIS_CMD SUBCMD KEYWORDS...
 
 SUBCMD
-    s, search        Search all available packages and select.
-    q, search-local  Search installed packages and select.
-    i, info          Search all available packages,
+    s, select        Search for and select all available packages.
+                     * pacman -Ssq -> fzf
+    q, select-local  Search for and select installed packages.
+                     * pacman -Qsq -> fzf
+
+    i, info          Search for all available packages,
                      and show detail information that you selected.
-    l, info-local    Search installed packages,
-                     and show detail information that you selected.
+                     * pacman -Ssq -> fzf -> pacman -Sii
+    l, info-local    Same as [info], but searches for installed packages.
+                     instead of all available packages.
+                     * pacman -Qsq -> fzf -> pacman -Qil
+
+    p, view          Search for all available packages,
+                     and browse the details of the selected one using less pager.
+                     * pacman -Ssq -> fzf <--> pacman -Sii|less
+    v, view-local    Savem as [view], but searches for installed packages
+                     instead of all available packages.
+                     * pacman -Qsq -> fzf <--> pacman -Qil|less
+
     S, install       Select packages and install that you selected.
+                     * pacman -Ssq -> fzf -> sudo pacman -S
     R, remove        Select packages and uninstall that you selected.
+                     * pacman -Qsq -> fzf -> sudo pacman -Rn
+
     h, help          Show this usage.
+    V, version       Show version.
 ```
 
 
