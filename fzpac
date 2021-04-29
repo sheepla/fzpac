@@ -1,6 +1,7 @@
 #!/bin/bash
 
 readonly THIS_CMD="${0##*/}"
+readonly VERSION='1.0.0'
 
 _help() {
 	cat <<EOF
@@ -20,6 +21,10 @@ SUBCMD
     R, remove        Select packages and uninstall that you selected.
     h, help          Show this usage.
 EOF
+}
+
+_version() {
+    echo "$THIS_CMD -- Version $VERSION"
 }
 
 _main() {
@@ -64,6 +69,10 @@ _main() {
 			_help
 			break
 			;;
+        version | --version)
+            _version
+            break
+            ;;
 		*)
 			_err "Invalid sub command: $1"
 			return 1
