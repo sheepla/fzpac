@@ -20,6 +20,7 @@ SUBCMD
     S, install       Select packages and install that you selected.
     R, remove        Select packages and uninstall that you selected.
     h, help          Show this usage.
+    v, version       Show version.
 EOF
 }
 
