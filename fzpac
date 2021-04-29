@@ -40,6 +40,13 @@ SUBCMD
 EOF
 }
 
+_test_fzf() {
+    if ! command -v fzf &>/dev/null; then
+        _err "fzf is not installed. please install it." 
+        return 1
+    fi
+}
+
 _version() {
 	echo "$THIS_CMD -- Version $VERSION"
 }
@@ -49,6 +56,8 @@ _main() {
 		_help
 		exit 0
 	fi
+
+    _test_fzf || return 1
 
 	for arg in "$@"; do
 		case "$arg" in
