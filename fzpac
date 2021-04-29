@@ -1,7 +1,7 @@
 #!/bin/bash
 
 readonly THIS_CMD="${0##*/}"
-readonly VERSION='1.0.0'
+readonly VERSION='1.0.2'
 
 _help() {
 	cat <<EOF
@@ -11,16 +11,33 @@ USAGE
     $THIS_CMD SUBCMD KEYWORDS...
 
 SUBCMD
-    s, search        Search all available packages and select.
-    q, search-local  Search installed packages and select.
+    s, search        Search for and select all available packages.
+                     * pacman -Ssq -> fzf
+    q, search-local  Search for and select installed packages.
+                     * pacman -Qsq -> fzf
+
     i, info          Search all available packages,
                      and show detail information that you selected.
-    l, info-local    Search installed packages,
-                     and show detail information that you selected.
+                     * pacman -Ssq -> fzf -> pacman -Sii
+    l, info-local    Same as [info], but searches for installed packages.
+                     instead of all available packages.
+                     * pacman -Qsq -> fzf -> pacman -Qil
+
+    p, view          Search for all available packages,
+                     and browse the details of the selected one using less pager.
+                     and view detail information with less pager.
+                     * pacman -Ssq -> fzf <--> pacman -Sii|less
+    v, view-local    Savem as [view], but searches for installed packages
+                     instead of all available packages.
+                     * pacman -Qsq -> fzf <--> pacman -Qil|less
+
     S, install       Select packages and install that you selected.
+                     * pacman -Ssq -> fzf -> sudo pacman -S
     R, remove        Select packages and uninstall that you selected.
-    h, help          Show this usage.
-    V, version       Show version.
+                     * pacman -Qsq -> fzf -> sudo pacman -Rn
+
+    h, help             Show this usage.
+    V, version          Show version.
 EOF
 }
 
@@ -48,22 +65,32 @@ _main() {
 			;;
 		i | info)
 			shift
-			_select_available_pkgs "$@" | xargs -ro pacman -Sii
+			_select_available_pkgs "$@" | pacman -Sii -
 			break
 			;;
 		l | info-local)
 			shift
-			_select_local_pkgs "$@" | xargs -ro pacman -Qii
+			_select_local_pkgs "$@" | pacman -Qii -
+			break
+			;;
+		p | view)
+			shift
+			_view_available_pkgs
+			break
+			;;
+		v | view-local)
+			shift
+			_view_local_pkgs
 			break
 			;;
 		S | install)
 			shift
-			_select_available_pkgs "$@" | xargs -ro sudo pacman -S
+			_select_available_pkgs "$@" | sudo pacman -S -
 			break
 			;;
 		R | remove)
 			shift
-			_select_local_pkgs "$@" | xargs -ro sudo pacman -Rn
+			_select_local_pkgs "$@" | sudo pacman -Rn -
 			break
 			;;
 		h | -h | help | --help)
@@ -95,6 +122,16 @@ _select_available_pkgs() {
 _select_local_pkgs() {
 	pacman -Qsq "$@" |
 		fzf --multi --preview 'pacman -Qil {}'
+}
+
+_view_available_pkgs() {
+	pacman -Ssq "$@" |
+		fzf --preview 'pacman -Si {}' --bind 'enter:execute(pacman -Sii {} | less)'
+}
+
+_view_local_pkgs() {
+	pacman -Qsq "$@" |
+		fzf --preview 'pacman -Qil {}' --bind 'enter:execute(pacman -Qil {} | less)'
 }
 
 _main "$@"
