@@ -5,7 +5,7 @@ readonly VERSION='1.0.0'
 
 _help() {
 	cat <<EOF
-$THIS_CMD -- pacman package finder with fzf
+$THIS_CMD -- Arch Linux package finder with fzf
 
 USAGE
     $THIS_CMD SUBCMD KEYWORDS...
@@ -20,12 +20,12 @@ SUBCMD
     S, install       Select packages and install that you selected.
     R, remove        Select packages and uninstall that you selected.
     h, help          Show this usage.
-    v, version       Show version.
+    V, version       Show version.
 EOF
 }
 
 _version() {
-    echo "$THIS_CMD -- Version $VERSION"
+	echo "$THIS_CMD -- Version $VERSION"
 }
 
 _main() {
@@ -70,12 +70,13 @@ _main() {
 			_help
 			break
 			;;
-        version | --version)
-            _version
-            break
-            ;;
+		V | version | --version)
+			_version
+			break
+			;;
 		*)
-			_err "Invalid sub command: $1"
+			_err "Invalid sub command: $1."
+			_help
 			return 1
 			;;
 		esac
@@ -88,14 +89,12 @@ _err() {
 
 _select_available_pkgs() {
 	pacman -Ssq "$@" |
-		fzf --multi \
-			--preview 'cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")'
+		fzf --multi --preview 'pacman -Si {}'
 }
 
 _select_local_pkgs() {
 	pacman -Qsq "$@" |
-		fzf --multi \
-			--preview 'pacman -Qil {}'
+		fzf --multi --preview 'pacman -Qil {}'
 }
 
 _main "$@"
