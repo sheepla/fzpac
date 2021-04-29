@@ -25,7 +25,6 @@ SUBCMD
 
     p, view          Search for all available packages,
                      and browse the details of the selected one using less pager.
-                     and view detail information with less pager.
                      * pacman -Ssq -> fzf <--> pacman -Sii|less
     v, view-local    Savem as [view], but searches for installed packages
                      instead of all available packages.
@@ -36,8 +35,8 @@ SUBCMD
     R, remove        Select packages and uninstall that you selected.
                      * pacman -Qsq -> fzf -> sudo pacman -Rn
 
-    h, help             Show this usage.
-    V, version          Show version.
+    h, help          Show this usage.
+    V, version       Show version.
 EOF
 }
 
