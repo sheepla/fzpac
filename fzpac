@@ -16,7 +16,7 @@ SUBCMD
     q, search-local  Search for and select installed packages.
                      * pacman -Qsq -> fzf
 
-    i, info          Search all available packages,
+    i, info          Search for all available packages,
                      and show detail information that you selected.
                      * pacman -Ssq -> fzf -> pacman -Sii
     l, info-local    Same as [info], but searches for installed packages.
