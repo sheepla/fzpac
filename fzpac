@@ -11,9 +11,9 @@ USAGE
     $THIS_CMD SUBCMD KEYWORDS...
 
 SUBCMD
-    s, search        Search for and select all available packages.
+    s, select        Search for and select all available packages.
                      * pacman -Ssq -> fzf
-    q, search-local  Search for and select installed packages.
+    q, select-local  Search for and select installed packages.
                      * pacman -Qsq -> fzf
 
     i, info          Search for all available packages,
@@ -52,12 +52,12 @@ _main() {
 
 	for arg in "$@"; do
 		case "$arg" in
-		s | search)
+		s | select)
 			shift
 			_select_available_pkgs "$@"
 			break
 			;;
-		q | search-local)
+		q | select-local)
 			shift
 			_select_local_pkgs "$@"
 			break
@@ -74,12 +74,12 @@ _main() {
 			;;
 		p | view)
 			shift
-			_view_available_pkgs
+			_view_available_pkgs "$@"
 			break
 			;;
 		v | view-local)
 			shift
-			_view_local_pkgs
+			_view_local_pkgs "$@"
 			break
 			;;
 		S | install)
