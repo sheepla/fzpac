@@ -13,10 +13,10 @@ You can also select multiple packages by pressing the `Tab` key.
 Press `Enter` to confirm your selection.
 
 ```
-$THIS_CMD -- Arch Linux package finder with fzf
+fzpac -- Arch Linux package finder with fzf
 
 USAGE
-    $THIS_CMD SUBCMD KEYWORDS...
+    fzpac SUBCMD KEYWORDS...
 
 SUBCMD
     s, select        Search for and select all available packages.
