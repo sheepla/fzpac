@@ -1,8 +1,10 @@
 # fzpac
 
-Arch Linux package finder with fzf
+*fzpac* is an Arch Linux package finder with `fzf`.
+You can quickly find a package to see its detailed information and install / uninstall it.
 
 <image src="./img/screenshot.png" width="70%">
+
 
 ## Usage
 
@@ -52,7 +54,7 @@ SUBCMD
 
 ### Dependence
 
-Require `fzf`.
+Requires `fzf`.
 
 <a href="https://github.com/junegunn/fzf">junegunn/fzf</a>
 
@@ -64,7 +66,7 @@ sudo pacman -S fzf
 
 ### Optional
 
-If you have the following AUR helpers installed, use that command in preference to `pacman`:
+If you have the following AUR helpers installed, `fzpac` will use that command in preference to pacman.
 
 <ul>
     <li><a href="https://github.com/Jguer/yay">Jguer/yay</a></li>
