@@ -1,7 +1,7 @@
 #!/bin/bash
 
 readonly THIS_CMD="${0##*/}"
-readonly VERSION='1.0.2'
+readonly VERSION='1.1.0'
 
 _help() {
 	cat <<EOF
@@ -41,10 +41,23 @@ EOF
 }
 
 _test_fzf() {
-    if ! command -v fzf &>/dev/null; then
-        _err "fzf is not installed. please install it." 
-        return 1
-    fi
+	if ! command -v fzf &>/dev/null; then
+		_err "fzf is not installed. please install it."
+		return 1
+	fi
+}
+
+_get_pacman_cmd() {
+	if command -v paru &>/dev/null; then
+		echo paru
+	elif command -v yay &>/dev/null; then
+		echo yay
+	elif command -v pacman &>/dev/null; then
+		echo pacman
+	else
+		_err 'The command for pacman or AUR helper was not found.'
+		return 1
+	fi
 }
 
 _version() {
@@ -57,48 +70,50 @@ _main() {
 		exit 0
 	fi
 
-    _test_fzf || return 1
+	_test_fzf || return 1
+
+	pacman_cmd="$(_get_pacman_cmd)"
 
 	for arg in "$@"; do
 		case "$arg" in
 		s | select)
 			shift
-			_select_available_pkgs "$@"
+			_select_available_pkgs "$pacman_cmd" "$@"
 			break
 			;;
 		q | select-local)
 			shift
-			_select_local_pkgs "$@"
+			_select_local_pkgs "$pacman_cmd" "$@"
 			break
 			;;
 		i | info)
 			shift
-			_select_available_pkgs "$@" | pacman -Sii -
+			_select_available_pkgs "$pacman_cmd" "$@" | "$pacman_cmd" -Sii -
 			break
 			;;
 		l | info-local)
 			shift
-			_select_local_pkgs "$@" | pacman -Qii -
+			_select_local_pkgs "$pacman_cmd" "$@" | "$pacman_cmd" -Qii -
 			break
 			;;
 		p | view)
 			shift
-			_view_available_pkgs "$@"
+			_view_available_pkgs "$pacman_cmd" "$@"
 			break
 			;;
 		v | view-local)
 			shift
-			_view_local_pkgs "$@"
+			_view_local_pkgs "$pacman_cmd" "$@"
 			break
 			;;
 		S | install)
 			shift
-			_select_available_pkgs "$@" | sudo pacman -S -
+			_select_available_pkgs "$pacman_cmd" "$@" | "$pacman_cmd" -S -
 			break
 			;;
 		R | remove)
 			shift
-			_select_local_pkgs "$@" | sudo pacman -Rn -
+			_select_local_pkgs "$pacman_cmd" "$@" | "$pacman_cmd" -Rn -
 			break
 			;;
 		h | -h | help | --help)
@@ -123,23 +138,33 @@ _err() {
 }
 
 _select_available_pkgs() {
-	pacman -Ssq "$@" |
-		fzf --multi --preview 'pacman -Si {}'
+	pacman_cmd="$1"
+	shift
+	"$pacman_cmd" -Ssq "$@" |
+		fzf --multi --preview "$pacman_cmd -Si {}"
 }
 
 _select_local_pkgs() {
-	pacman -Qsq "$@" |
-		fzf --multi --preview 'pacman -Qil {}'
+	pacman_cmd="$1"
+	shift
+	"$pacman_cmd" -Qsq "$@" |
+		fzf --multi --preview "$pacman_cmd -Qil {}"
 }
 
 _view_available_pkgs() {
-	pacman -Ssq "$@" |
-		fzf --preview 'pacman -Si {}' --bind 'enter:execute(pacman -Sii {} | less)'
+	pacman_cmd="$1"
+	shift
+	"$pacman_cmd" -Ssq "$@" |
+		fzf --preview "$pacman_cmd -Si {}" \
+			--bind "enter:execute($pacman_cmd -Sii {} | less)"
 }
 
 _view_local_pkgs() {
-	pacman -Qsq "$@" |
-		fzf --preview 'pacman -Qil {}' --bind 'enter:execute(pacman -Qil {} | less)'
+	pacman_cmd="$1"
+	shift
+	"$pacman_cmd" -Qsq "$@" |
+		fzf --preview "$pacman_cmd -Qil {}" \
+			--bind "enter:execute($pacman_cmd -Qil {} | less)"
 }
 
 _main "$@"
