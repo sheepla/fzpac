@@ -43,7 +43,7 @@ EOF
 _test_fzf() {
 	if ! command -v fzf &>/dev/null; then
 		_err "fzf is not installed. please install it."
-		return 1
+		exit 1
 	fi
 }
 
@@ -56,7 +56,7 @@ _get_pacman_cmd() {
 		echo pacman
 	else
 		_err 'The command for pacman or AUR helper was not found.'
-		return 1
+		exit 1
 	fi
 }
 
@@ -70,7 +70,7 @@ _main() {
 		exit 0
 	fi
 
-	_test_fzf || return 1
+	_test_fzf
 
 	pacman_cmd="$(_get_pacman_cmd)"
 
@@ -108,12 +108,20 @@ _main() {
 			;;
 		S | install)
 			shift
-			_select_available_pkgs "$pacman_cmd" "$@" | "$pacman_cmd" -S -
+			if [ "$pacman_cmd" = 'pacman' ]; then
+				_select_available_pkgs pacman "$@" | sudo pacman -S -
+			else
+				_select_available_pkgs "$pacman_cmd" "$@" | "$pacman_cmd" -S -
+			fi
 			break
 			;;
 		R | remove)
 			shift
-			_select_local_pkgs "$pacman_cmd" "$@" | "$pacman_cmd" -Rn -
+			if [ "$pacman_cmd" = 'pacman' ]; then
+				_select_local_pkgs pacman "$@" | sudo pacman -Rn -
+			else
+				_select_local_pkgs "$pacman_cmd" "$@" | "$pacman_cmd" -Rn -
+			fi
 			break
 			;;
 		h | -h | help | --help)
