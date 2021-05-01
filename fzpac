@@ -69,6 +69,10 @@ _version() {
 	echo "$THIS_CMD -- Version $VERSION"
 }
 
+_fzf(){
+	env LANG=C fzf "${@}"
+}
+
 _main() {
 	if [[ $# -lt 1 ]]; then
 		_help
@@ -154,21 +158,21 @@ _select_available_pkgs() {
 	pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" -Ssq "${@}" |
-		fzf --multi --preview "${pacman_cmd} -Si {}"
+		_fzf --multi --preview "${pacman_cmd} -Si {}"
 }
 
 _select_local_pkgs() {
 	pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" -Qsq "${@}" |
-		fzf --multi --preview "${pacman_cmd} -Qil {}"
+		_fzf --multi --preview "${pacman_cmd} -Qil {}"
 }
 
 _view_available_pkgs() {
 	pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" -Ssq "${@}" |
-		fzf --preview "${pacman_cmd} -Si {}" \
+		_fzf --preview "${pacman_cmd} -Si {}" \
 			--bind "enter:execute(${pacman_cmd} -Sii {} | less)"
 }
 
@@ -176,9 +180,9 @@ _view_local_pkgs() {
 	pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" -Qsq "${@}" |
-		fzf --preview "${pacman_cmd} -Qil {}" \
+		_fzf --preview "${pacman_cmd} -Qil {}" \
 			--bind "enter:execute(${pacman_cmd} -Qil {} | less)"
 }
 
 _main "${@}"
-exit ${?}
+exit "${?}"
