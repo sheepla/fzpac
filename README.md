@@ -50,16 +50,30 @@ SUBCMD
 
 ## Installation
 
+### Dependence
+
 Require `fzf`.
 
 <a href="https://github.com/junegunn/fzf">junegunn/fzf</a>
 
+If `fzf` is not installed, install it with the following command:
+
 ```bash
-# If you don't have installed fzf...
 sudo pacman -S fzf
 ```
 
-Just download and add execution permission.
+### Optional
+
+If you have the following AUR helpers installed, use that command in preference to `pacman`:
+
+<ul>
+    <li><a href="https://github.com/Jguer/yay">Jguer/yay</a></li>
+    <li><a href="https://github.com/Morganamilo/paru">Morganamilo/paru</a></li>
+</ul>
+
+### Install
+
+Just download `fzpac` and add execution permission.
 
 ```bash
 # wget
