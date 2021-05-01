@@ -9,6 +9,10 @@ readonly PACMANS=(
 	"pacman"
 )
 
+_version() {
+	echo "$THIS_CMD -- Version $VERSION"
+}
+
 _help() {
 	cat <<EOF
 $THIS_CMD -- Arch Linux package finder with fzf
@@ -63,10 +67,6 @@ _get_pacman_cmd() {
 	done
 	_err 'The command for pacman or AUR helper was not found.'
 	exit 1
-}
-
-_version() {
-	echo "$THIS_CMD -- Version $VERSION"
 }
 
 _fzf() {
