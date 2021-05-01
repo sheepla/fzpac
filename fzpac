@@ -3,6 +3,12 @@
 readonly THIS_CMD="${0##*/}"
 readonly VERSION='1.1.0'
 
+readonly PACMANS=(
+	"paru"
+	"yay"
+	"pacman"
+)
+
 _help() {
 	cat <<EOF
 $THIS_CMD -- Arch Linux package finder with fzf
@@ -48,16 +54,15 @@ _test_fzf() {
 }
 
 _get_pacman_cmd() {
-	if command -v paru &>/dev/null; then
-		echo paru
-	elif command -v yay &>/dev/null; then
-		echo yay
-	elif command -v pacman &>/dev/null; then
-		echo pacman
-	else
-		_err 'The command for pacman or AUR helper was not found.'
-		exit 1
-	fi
+	local _cmd
+	for _cmd in "${PACMANS[@]}"; do
+		if command -v "${_cmd}" &>/dev/null; then
+			echo -n "${_cmd}"
+			return 0
+		fi
+	done
+	_err 'The command for pacman or AUR helper was not found.'
+	exit 1
 }
 
 _version() {
