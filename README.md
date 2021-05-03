@@ -20,32 +20,38 @@ USAGE
     fzpac SUBCMD KEYWORDS...
 
 SUBCMD
-    s, select        Search for and select all available packages.
-                     * pacman -Ssq -> fzf
-    q, select-local  Search for and select installed packages.
-                     * pacman -Qsq -> fzf
+    s, select        SEARCH FOR: all available packages
+                     RUN:        pacman -Ssq -> fzf
+                     STDOUT:     only names of the selected packages
+    q, select-local  SEARCH FOR: already installed packages
+                     RUN:        pacman -Qsq -> fzf
+                     STDOUT:     only names of the selected packages
 
-    i, info          Search for all available packages,
-                     and show detail information that you selected.
-                     * pacman -Ssq -> fzf -> pacman -Sii
-    l, info-local    Same as [info], but searches for installed packages.
-                     instead of all available packages.
-                     * pacman -Qsq -> fzf -> pacman -Qil
+    i, info          SEARCH FOR: all available packages
+                     RUN:        pacman -Ssq -> fzf -> pacman -Sii
+                     STDOUT:     detailed information on the selected packages
+    l, info-local    SEARCH FOR: already installed packages
+                     RUN:        pacman -Qsq -> fzf -> pacman -Qil
+                     STDOUT:     detailed information on the selected packages
 
-    p, view          Search for all available packages,
-                     and browse the details of the selected one using less pager.
-                     * pacman -Ssq -> fzf <--> pacman -Sii|less
-    v, view-local    Savem as [view], but searches for installed packages
-                     instead of all available packages.
-                     * pacman -Qsq -> fzf <--> pacman -Qil|less
+    p, view          SEARCH FOR: all available packages
+                     RUN:        pacman -Ssq -> fzf <--> pacman -Sii|less
+                     STDOUT:     none
+    v, view-local    SEARCH FOR: already installed packages
+                     RUN:        pacman -Qsq -> fzf <--> pacman -Qil|less
+                     STDOUT:     none
 
-    S, install       Select packages and install that you selected.
-                     * pacman -Ssq -> fzf -> sudo pacman -S
-    R, remove        Select packages and uninstall that you selected.
-                     * pacman -Qsq -> fzf -> sudo pacman -Rn
+    S, install       Select packages and INSTALL it.
+                     SEARCH FOR: all available packages
+                     RUN:        pacman -Ssq -> fzf -> sudo pacman -S
+
+    R, remove        Select packages and UNINSTALL it.
+                     SEARCH FOR: already installed packages
+                     RUN:        pacman -Qsq -> fzf -> sudo pacman -Rn
 
     h, help          Show this usage.
     V, version       Show version.
+
 ```
 
 ## Installation
