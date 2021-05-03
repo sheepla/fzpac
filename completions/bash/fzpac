@@ -1,0 +1,13 @@
+# fzpac(1) completion                                       -*- shell-script -*-
+
+_fzpac_module() {
+	local cur prev cword
+	_get_comp_words_by_ref -n : cur prev cword
+
+	if [[ "${cword}" -eq 1 ]]; then
+		local subcmds="search select-local info info-local view-local install remove help version"
+		COMPREPLY=($(compgen -W "${subcmds}" -- "${cur}"))
+	fi
+}
+
+complete -F _fzpac_module fzpac
