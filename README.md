@@ -1,17 +1,18 @@
 # 🔎 fzpac
 
 *fzpac* is an Arch Linux package finder with `fzf`.
-You can quickly find a package to browse its detailed information and install / uninstall it.
+
+## Features
+
+- Quickly find the packages you are looking for with fuzzy search and preview.
+- You can immediately install / uninstall the selected the packages.
+- Supports tab completion in bash.
 
 <image src="./img/screenshot.png" width="70%">
 
 ## Usage
 
-When you run the command, the preview pane displays detailed package information and a list of files.
-Type keywords to narrow down your choices.
-Press `Ctrl+j` / `Ctrl+k` or `Ctrl+n` / `Ctrl+p` or cursor key to select the package.
-You can also select multiple packages by pressing the `Tab` key.
-Press `Enter` to confirm your selection.
+### Run this command
 
 ```
 fzpac -- Arch Linux package finder with fzf
@@ -53,6 +54,18 @@ SUBCMD
     V, version       Show version.
 
 ```
+
+When `fzf` is started, detailed information about the package will be displayed in the preview pane.
+
+### Select the packages
+
+- Press `Ctrl+N` / `Ctrl+P` or `Ctrl+J` / `Ctrl+K` to move focus.
+- You can select multiple items by pressing the `Tab` key.
+- Press `Enter` to confirm your selection.
+
+### View info / Install / Uninstall
+
+You can view detailed information of the packages that you selected or install / uninstall it.
 
 ## Installation
 
