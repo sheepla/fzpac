@@ -85,6 +85,23 @@ curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x f
 
 #### Use `bash-completion`
 
+To use Tab completion with bash, install the `bash-completion` package.
+
+```bash
+sudo pacman -S bash-completion
+```
+
+Then, add the following contents to your `~/.bashrc` . 
+
+```bash
+_set_completion() {
+    local bash_completion='/usr/share/bash-completion/bash_completion'
+    [ -f "${bash_completion}" ] && source "${bash_completion}"
+}
+
+_set_completion
+```
+
 Run below if you want to use `bash-completion` for `fzpac`.
 
 ```bash
