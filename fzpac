@@ -88,6 +88,7 @@ _main() {
 
 	_test_fzf
 
+	local pacman_cmd
 	pacman_cmd="$(_get_pacman_cmd)"
 
 	for arg in "${@}"; do
@@ -162,21 +163,21 @@ _err() {
 }
 
 _select_available_pkgs() {
-	pacman_cmd="$1"
+	local pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" -Ssq "${@}" |
 		_fzf --multi --preview "${pacman_cmd} -Si {}"
 }
 
 _select_local_pkgs() {
-	pacman_cmd="$1"
+	local pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" -Qsq "${@}" |
 		_fzf --multi --preview "${pacman_cmd} -Qil {}"
 }
 
 _view_available_pkgs() {
-	pacman_cmd="$1"
+	local pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" -Ssq "${@}" |
 		_fzf --preview "${pacman_cmd} -Si {}" \
@@ -184,7 +185,7 @@ _view_available_pkgs() {
 }
 
 _view_local_pkgs() {
-	pacman_cmd="$1"
+	local pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" -Qsq "${@}" |
 		_fzf --preview "${pacman_cmd} -Qil {}" \
