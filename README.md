@@ -83,6 +83,8 @@ sudo pacman -S fzf
 
 ### Optional
 
+#### AUR Helper
+
 If you have the following AUR helpers installed, `fzpac` will use that command in preference to `pacman` .
 
 <ul>
@@ -90,19 +92,7 @@ If you have the following AUR helpers installed, `fzpac` will use that command i
     <li><a href="https://github.com/Jguer/yay">Jguer/yay</a></li>
 </ul>
 
-### Install
-
-Just download `fzpac` and add execution permission.
-
-```bash
-# wget
-wget https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpac
-
-# curl
-curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpac
-```
-
-#### Use `bash-completion`
+### `bash-completion`
 
 To use Tab completion with bash, install the `bash-completion` package.
 
@@ -120,6 +110,20 @@ _set_completion() {
 
 _set_completion
 ```
+
+### Install
+
+Just download `fzpac` and add execution permission.
+
+```bash
+# wget
+wget https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpac
+
+# curl
+curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpac
+```
+
+#### Use `bash-completion`
 
 Run below if you want to use `bash-completion` for `fzpac`.
 
