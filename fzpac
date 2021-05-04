@@ -2,7 +2,6 @@
 
 readonly THIS_CMD="${0##*/}"
 readonly VERSION='1.2.0'
-
 readonly PACMANS=(
 	"paru"
 	"yay"
@@ -90,7 +89,7 @@ _main() {
 	pacman_cmd="$(_get_pacman_cmd)"
 
 	for arg in "${@}"; do
-		case "$arg" in
+		case "${arg}" in
 		s | select)
 			shift
 			_select_available_pkgs "${pacman_cmd}" "${@}"
