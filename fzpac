@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+set -eu
+
 readonly THIS_CMD="${0##*/}"
-readonly VERSION='1.2.0'
+readonly VERSION='1.2.1'
 readonly PACMANS=(
 	"paru"
 	"yay"
