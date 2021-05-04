@@ -92,7 +92,7 @@ If you have the following AUR helpers installed, `fzpac` will use that command i
     <li><a href="https://github.com/Jguer/yay">Jguer/yay</a></li>
 </ul>
 
-### Bash Completion
+#### Bash Completion
 
 To use Tab completion with bash, install the `bash-completion` package.
 
@@ -111,7 +111,7 @@ _set_completion() {
 _set_completion
 ```
 
-### Install
+### Install `fzpac`
 
 Just download `fzpac` and add execution permission.
 
