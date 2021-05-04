@@ -12,7 +12,7 @@
 
 ## Usage
 
-### Run this command
+### Run This Command
 
 ```
 fzpac -- Arch Linux package finder with fzf
@@ -55,9 +55,9 @@ SUBCMD
 
 ```
 
-When `fzf` is started, detailed information about the package will be displayed in the preview pane.
+### Select the Packages with `fzf`
 
-### Select the packages
+When `fzf` is started, detailed information about the package will be displayed in the preview pane.
 
 - Press `Ctrl+N` / `Ctrl+P` or `Ctrl+J` / `Ctrl+K` to move focus.
 - You can select multiple items by pressing the `Tab` key.
