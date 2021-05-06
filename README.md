@@ -113,7 +113,17 @@ _set_completion
 
 ### Install `fzpac`
 
-Just download `fzpac` and add execution permission.
+Run below if you want to install `fzpac` and `bash-completion` for `fzpac`.
+
+```bash
+git clone https://github.com/sheepla/fzpac
+cd fzpac
+make install
+```
+
+### Manually Installation
+
+Download `fzpac` and add execution permission.
 
 ```bash
 # wget
@@ -123,21 +133,11 @@ wget https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpa
 curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpac
 ```
 
-#### Use `bash-completion`
-
 Run below if you want to use `bash-completion` for `fzpac`.
 
 ```bash
-wget -O fzpac https://raw.githubusercontent.com/sheepla/fzpac/main/completions/bash/fzpac && sudo install -o root -g root -m 0644 fzpac /usr/share/bash-completion/completions/fzpac
+wget -O fzpac https://raw.githubusercontent.com/sheepla/fzpac/main/completions/bash/fzpac
+sudo install -o root -g root -m 0644 fzpac /usr/share/bash-completion/completions/fzpac
 # or curl
 ```
 
-#### Install `fzpac` and `bash-completion`
-
-Run below if you want to install `fzpac` and `bash-completion` for `fzpac`.
-
-```bash
-git clone https://github.com/sheepla/fzpac
-cd fzpac
-make install
-```
