@@ -104,14 +104,15 @@ Then, add the following contents to your `~/.bashrc` .
 
 ```bash
 _set_completion() {
-    local bash_completion='/usr/share/bash-completion/bash_completion'
+    local bash_completion
+    bash_completion='/usr/share/bash-completion/bash_completion'
     [ -f "${bash_completion}" ] && source "${bash_completion}"
 }
 
 _set_completion
 ```
 
-### Install `fzpac`
+### Installtion
 
 Run below if you want to install `fzpac` and `bash-completion` for `fzpac`.
 
@@ -121,7 +122,7 @@ cd fzpac
 make install
 ```
 
-### Manually Installation
+### Manual Installation
 
 Download `fzpac` and add execution permission.
 
