@@ -123,7 +123,7 @@ Run below if you want to install `fzpac` and `bash-completion` for `fzpac`.
 ```bash
 git clone https://github.com/sheepla/fzpac
 cd fzpac
-make install
+sudo make install
 ```
 
 ### Manual Installation
