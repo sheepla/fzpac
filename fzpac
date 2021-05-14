@@ -105,12 +105,12 @@ _main() {
 			;;
 		i | info)
 			shift
-			_select_available_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" -Sii -
+			_select_available_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --sync --info --info -
 			break
 			;;
 		l | info-local)
 			shift
-			_select_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" -Qii -
+			_select_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --query --info --info - 
 			break
 			;;
 		p | view)
@@ -126,18 +126,18 @@ _main() {
 		S | install)
 			shift
 			if [ "${pacman_cmd}" = 'pacman' ]; then
-				_select_available_pkgs pacman "${@}" | sudo pacman -S -
+				_select_available_pkgs pacman "${@}" | sudo pacman --sync -
 			else
-				_select_available_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" -S -
+				_select_available_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --sync -
 			fi
 			break
 			;;
 		R | remove)
 			shift
 			if [ "${pacman_cmd}" = 'pacman' ]; then
-				_select_local_pkgs pacman "${@}" | sudo pacman -Rn -
+				_select_local_pkgs pacman "${@}" | sudo pacman --remove --nosave -
 			else
-				_select_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" -Rn -
+				_select_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --remove --nosave -
 			fi
 			break
 			;;
@@ -165,31 +165,31 @@ _err() {
 _select_available_pkgs() {
 	local pacman_cmd="$1"
 	shift
-	"${pacman_cmd}" -Ssq "${@}" |
-		_fzf --multi --preview "${pacman_cmd} -Si {}"
+	"${pacman_cmd}" --sync --search --quiet "${@}" |
+		_fzf --multi --preview "${pacman_cmd} --sync --info {}"
 }
 
 _select_local_pkgs() {
 	local pacman_cmd="$1"
 	shift
-	"${pacman_cmd}" -Qsq "${@}" |
-		_fzf --multi --preview "${pacman_cmd} -Qil {}"
+	"${pacman_cmd}" --query --search --quiet "${@}" |
+		_fzf --multi --preview "${pacman_cmd} --query --info --list {}"
 }
 
 _view_available_pkgs() {
 	local pacman_cmd="$1"
 	shift
-	"${pacman_cmd}" -Ssq "${@}" |
-		_fzf --preview "${pacman_cmd} -Si {}" \
-			--bind "enter:execute(${pacman_cmd} -Sii {} | less)"
+	"${pacman_cmd}" --sync --search --quiet "${@}" |
+		_fzf --preview "${pacman_cmd} --sync --info {}" \
+			--bind "enter:execute(${pacman_cmd} --sync --info --info {} | less)"
 }
 
 _view_local_pkgs() {
 	local pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" -Qsq "${@}" |
-		_fzf --preview "${pacman_cmd} -Qil {}" \
-			--bind "enter:execute(${pacman_cmd} -Qil {} | less)"
+		_fzf --preview "${pacman_cmd} --query --info --list {}" \
+			--bind "enter:execute(${pacman_cmd} --query --info --list {} | less)"
 }
 
 _main "${@}"
