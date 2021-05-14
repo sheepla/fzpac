@@ -8,8 +8,8 @@ BASH_COMPLETION_DEST_PATH := $(SHAREDIR)/bash-completion/completions/fzpac
 
 .PHONY: install
 install:
-	install -D -o root -g root -m 0755 $(FZPAC_SRC_PATH) $(DESTDIR)$(FZPAC_DEST_PATH)
-	install -D -o root -g root -m 0644 $(BASH_COMPLETION_SRC_PATH) $(DESTDIR)$(BASH_COMPLETION_DEST_PATH)
+	install -Dm 0755 $(FZPAC_SRC_PATH) $(DESTDIR)$(FZPAC_DEST_PATH)
+	install -Dm 0644 $(BASH_COMPLETION_SRC_PATH) $(DESTDIR)$(BASH_COMPLETION_DEST_PATH)
 
 .PHONY: uninstall
 uninstall:
