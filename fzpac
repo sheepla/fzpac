@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-set -eu
+set -o errexit
+set -o nounset
 
 readonly THIS_CMD="${0##*/}"
 readonly VERSION='1.2.1'
