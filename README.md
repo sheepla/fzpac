@@ -23,17 +23,17 @@ USAGE
 SUBCMD
     s, select        SEARCH FOR: all available packages
                      RUN:        pacman -Ssq -> fzf
-                     STDOUT:     only names of the selected packages
+                     STDOUT:     only names of selected packages
     q, select-local  SEARCH FOR: already installed packages
                      RUN:        pacman -Qsq -> fzf
-                     STDOUT:     only names of the selected packages
+                     STDOUT:     only names of selected packages
 
     i, info          SEARCH FOR: all available packages
                      RUN:        pacman -Ssq -> fzf -> pacman -Sii
-                     STDOUT:     detailed information on the selected packages
+                     STDOUT:     detailed information on selected packages
     l, info-local    SEARCH FOR: already installed packages
                      RUN:        pacman -Qsq -> fzf -> pacman -Qil
-                     STDOUT:     detailed information on the selected packages
+                     STDOUT:     detailed information on selected packages
 
     p, view          SEARCH FOR: all available packages
                      RUN:        pacman -Ssq -> fzf <--> pacman -Sii|less
@@ -49,6 +49,10 @@ SUBCMD
     R, remove        Select packages and UNINSTALL it.
                      SEARCH FOR: already installed packages
                      RUN:        pacman -Qsq -> fzf -> sudo pacman -Rn
+
+    A, autoremove    Select packages that are no longer needed and UNINSTALL it.
+                     SEARCH FOR: dependencies that are no longer needed
+                     RUN:        pacman -Qdtq -> fzf -> sudo pacman -Rns
 
     h, help          Show this usage.
     V, version       Show version.
