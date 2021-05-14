@@ -115,7 +115,7 @@ _main() {
 			;;
 		l | info-local)
 			shift
-			_select_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --query --info --info - 
+			_select_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --query --info --info -
 			break
 			;;
 		p | view)
@@ -149,9 +149,9 @@ _main() {
 		A | autoremove)
 			shift
 			if [ "${pacman_cmd}" = 'pacman' ]; then
-                _select_from_non_required_pkgs "${pacman_cmd}" "${@}" | sudo pacman --remove --nosave --recursive -
+				_select_from_non_required_pkgs "${pacman_cmd}" "${@}" | sudo pacman --remove --nosave --recursive -
 			else
-                _select_from_non_required_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --remove --nosave --recursive -
+				_select_from_non_required_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --remove --nosave --recursive -
 			fi
 			break
 			;;
