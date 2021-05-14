@@ -116,7 +116,7 @@ _set_completion() {
 _set_completion
 ```
 
-### Installtion
+### Installation
 
 Run below if you want to install `fzpac` and `bash-completion` for `fzpac`.
 
