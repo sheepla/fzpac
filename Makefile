@@ -1,17 +1,20 @@
 FZPAC_SRC_PATH := fzpac
-FZPAC_DEST_PATH := /usr/local/bin/fzpac
+PREFIX ?= /usr
+BINDIR ?= $(PREFIX)/local/bin
+SHAREDIR ?= $(PREFIX)/share
+FZPAC_DEST_PATH := $(BINDIR)/fzpac
 BASH_COMPLETION_SRC_PATH := completions/bash/fzpac
-BASH_COMPLETION_DEST_PATH := /usr/share/bash-completion/completions/fzpac
+BASH_COMPLETION_DEST_PATH := $(SHAREDIR)/bash-completion/completions/fzpac
 
 .PHONY: install
 install:
-	sudo install -o root -g root -m 0755 $(FZPAC_SRC_PATH) $(FZPAC_DEST_PATH)
-	sudo install -o root -g root -m 0644 $(BASH_COMPLETION_SRC_PATH) $(BASH_COMPLETION_DEST_PATH)
+	install -Dm 0755 $(FZPAC_SRC_PATH) $(DESTDIR)$(FZPAC_DEST_PATH)
+	install -Dm 0644 $(BASH_COMPLETION_SRC_PATH) $(DESTDIR)$(BASH_COMPLETION_DEST_PATH)
 
 .PHONY: uninstall
 uninstall:
-	sudo rm -f $(FZPAC_DEST_PATH)
-	sudo rm -f $(BASH_COMPLETION_DEST_PATH)
+	rm -f $(DESTDIR)$(FZPAC_DEST_PATH)
+	rm -f $(DESTDIR)$(BASH_COMPLETION_DEST_PATH)
 
 .PHONY: format
 format:
