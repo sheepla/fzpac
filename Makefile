@@ -13,8 +13,8 @@ install:
 
 .PHONY: uninstall
 uninstall:
-	rm -f $(FZPAC_DEST_PATH)
-	rm -f $(BASH_COMPLETION_DEST_PATH)
+	rm -f $(DESTDIR)$(FZPAC_DEST_PATH)
+	rm -f $(DESTDIR)$(BASH_COMPLETION_DEST_PATH)
 
 .PHONY: format
 format:
