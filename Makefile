@@ -17,3 +17,8 @@ uninstall:
 format:
 	shfmt -w $(FZPAC_SRC_PATH)
 	shfmt -w $(BASH_COMPLETION_SRC_PATH)
+
+.PHONY: lint
+lint:
+	shellcheck $(FZPAC_SRC_PATH)
+	shellcheck $(BASH_COMPLETION_SRC_PATH)
