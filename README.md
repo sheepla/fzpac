@@ -128,6 +128,9 @@ sudo make install
 
 ### Manual Installation
 
+<details>
+<summary>To install manually...</summary>   
+<div>
 Download `fzpac` and add execution permission.
 
 ```bash
@@ -145,4 +148,5 @@ wget -O fzpac https://raw.githubusercontent.com/sheepla/fzpac/main/completions/b
 sudo install -o root -g root -m 0644 fzpac /usr/share/bash-completion/completions/fzpac
 # or curl
 ```
-
+</div>
+</details>
