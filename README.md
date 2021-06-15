@@ -1,6 +1,6 @@
-# 🔎 fzpac
+<div align="center"> 🔎 fzpac</div>
 
-*fzpac* is an Arch Linux package finder with `fzf`.
+<div align="center">*fzpac* is an Arch Linux package finder with `fzf`.</div>
 
 ## Features
 
@@ -150,3 +150,7 @@ sudo install -o root -g root -m 0644 fzpac /usr/share/bash-completion/completion
 ```
 </div>
 </details>
+
+### Development
+
+Issue & PR is welcome!❤
