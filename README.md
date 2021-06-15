@@ -1,4 +1,4 @@
-<div align="center"> 🔎 fzpac</div>
+<h1><div align="center"> 🔎 fzpac</div></h1>
 
 <div align="center">*fzpac* is an Arch Linux package finder with `fzf`.</div>
 
