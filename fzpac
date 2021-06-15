@@ -12,7 +12,9 @@ readonly PACMANS=(
 )
 
 _version() {
-	echo "$THIS_CMD -- Version $VERSION"
+	echo -e "$THIS_CMD -- v$VERSION
+Released under the MIT License.
+    https://github.com/sheepla/fzpac"
 }
 
 _help() {
