@@ -1,12 +1,12 @@
-# 🔎 fzpac
+<h1><div align="center"> 🔎 fzpac</div></h1>
 
-*fzpac* is an Arch Linux package finder with `fzf`.
+<div align="center"><i>fzpac</i> is an Arch Linux package finder with fzf.</div>
 
 ## Features
 
 - Quickly find the packages you are looking for with fuzzy search and preview.
 - You can immediately install / uninstall the packages that you selected.
-- Supports tab completion in bash.
+- Supports tab completion in `bash`.
 
 <image src="./img/screenshot.png" width="70%">
 
@@ -126,6 +126,23 @@ cd fzpac
 cp -p completions/fish/fzpac.fish $HOME/.config/fish/completions
 ```````
 
+#### Zsh Completion
+
+To use Tab completion with zsh, copy `completions/zsh/_fzpac` to your `$fpath`.
+
+```bash
+git clone https://github.com/sheepla/fzpac
+cd fzpac
+cp -p completions/zsh/_fzpac {path to your fpath}
+```
+
+And activate zsh completions on your `.zshrc`.
+
+```.zshrc
+autoload -U compinit
+compinit -u
+```
+
 ### Installation
 
 Run below if you want to install `fzpac` and `bash-completion` for `fzpac`.
@@ -161,3 +178,7 @@ sudo install -o root -g root -m 0644 fzpac /usr/share/bash-completion/completion
 
 </div>
 </details>
+
+### Development
+
+Issue & PR is welcome!❤
