@@ -116,6 +116,16 @@ _set_completion() {
 _set_completion
 ```
 
+#### Fish Completion
+
+To use Tab completion with `fish`, copy `completions/fish/fzpac.fish` to `$HOME/.config/fish/completions` directory.
+
+```fish
+git clone https://github.com/sheepla/fzpac
+cd fzpac
+cp -p completions/fish/fzpac.fish $HOME/.config/fish/completions
+```````
+
 #### Zsh Completion
 
 To use Tab completion with zsh, copy `completions/zsh/_fzpac` to your `$fpath`.
