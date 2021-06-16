@@ -128,7 +128,7 @@ cd fzpac
 cp -p completions/fish/fzpac.fish $HOME/.config/fish/completions
 ```
 
-##### Zsh Completion
+##### zsh
 
 To use Tab completion with zsh, copy `completions/zsh/_fzpac` to your `$fpath`.
 
