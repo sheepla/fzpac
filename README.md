@@ -104,7 +104,7 @@ To use Tab completion with bash, install the `bash-completion` package.
 sudo pacman -S bash-completion
 ```
 
-Then, add the following contents to your `~/.bashrc` . 
+Then, add the following contents to your `~/.bashrc` .
 
 ```bash
 _set_completion() {
@@ -114,6 +114,23 @@ _set_completion() {
 }
 
 _set_completion
+```
+
+#### Zsh Completion
+
+To use Tab completion with zsh, copy `completions/zsh/_fzpac` to your `$fpath`.
+
+```bash
+git clone https://github.com/sheepla/fzpac
+cd fzpac
+cp -p completions/zsh/_fzpac {path to your fpath}
+```
+
+And activate zsh completions on your `.zshrc`.
+
+```.zshrc
+autoload -U compinit
+compinit -u
 ```
 
 ### Installation
@@ -129,7 +146,7 @@ sudo make install
 ### Manual Installation
 
 <details>
-<summary>To install manually...</summary>   
+<summary>To install manually...</summary>
 <div>
 Download `fzpac` and add execution permission.
 
@@ -148,6 +165,7 @@ wget -O fzpac https://raw.githubusercontent.com/sheepla/fzpac/main/completions/b
 sudo install -o root -g root -m 0644 fzpac /usr/share/bash-completion/completions/fzpac
 # or curl
 ```
+
 </div>
 </details>
 
