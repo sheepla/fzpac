@@ -104,7 +104,7 @@ To use Tab completion with bash, install the `bash-completion` package.
 sudo pacman -S bash-completion
 ```
 
-Then, add the following contents to your `~/.bashrc` . 
+Then, add the following contents to your `~/.bashrc` .
 
 ```bash
 _set_completion() {
@@ -115,6 +115,16 @@ _set_completion() {
 
 _set_completion
 ```
+
+#### Fish Completion
+
+To use Tab completion with `fish`, copy `completions/fish/fzpac.fish` to `$HOME/.config/fish/completions` directory.
+
+```fish
+git clone https://github.com/sheepla/fzpac
+cd fzpac
+cp -p completions/fish/fzpac.fish $HOME/.config/fish/completions
+```````
 
 ### Installation
 
@@ -129,7 +139,7 @@ sudo make install
 ### Manual Installation
 
 <details>
-<summary>To install manually...</summary>   
+<summary>To install manually...</summary>
 <div>
 Download `fzpac` and add execution permission.
 
@@ -148,5 +158,6 @@ wget -O fzpac https://raw.githubusercontent.com/sheepla/fzpac/main/completions/b
 sudo install -o root -g root -m 0644 fzpac /usr/share/bash-completion/completions/fzpac
 # or curl
 ```
+
 </div>
 </details>
