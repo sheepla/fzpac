@@ -96,7 +96,9 @@ If you have the following AUR helpers installed, `fzpac` will use that command i
     <li><a href="https://github.com/Jguer/yay">Jguer/yay</a></li>
 </ul>
 
-#### Bash Completion
+#### Shell Completion
+
+##### bash
 
 To use Tab completion with bash, install the `bash-completion` package.
 
@@ -116,7 +118,7 @@ _set_completion() {
 _set_completion
 ```
 
-#### Fish Completion
+##### fish
 
 To use Tab completion with `fish`, copy `completions/fish/fzpac.fish` to `$HOME/.config/fish/completions` directory.
 
@@ -124,9 +126,9 @@ To use Tab completion with `fish`, copy `completions/fish/fzpac.fish` to `$HOME/
 git clone https://github.com/sheepla/fzpac
 cd fzpac
 cp -p completions/fish/fzpac.fish $HOME/.config/fish/completions
-```````
+```
 
-#### Zsh Completion
+##### Zsh Completion
 
 To use Tab completion with zsh, copy `completions/zsh/_fzpac` to your `$fpath`.
 
