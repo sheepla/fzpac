@@ -40,4 +40,3 @@ format:
 lint:
 	shellcheck $(FZPAC_SRC_PATH)
 	shellcheck $(BASH_COMPLETION_SRC_PATH)
-	shellcheck $(FISH_COMPLETION_SRC_PATH)
