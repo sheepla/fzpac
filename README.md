@@ -10,6 +10,14 @@
 
 <image src="./img/screenshot.png" width="70%">
 
+## Try `fzpac`
+
+To try `fzpac` quickly, run the following command:
+
+```bash
+curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpac
+```
+
 ## Usage
 
 ### Run This Command
