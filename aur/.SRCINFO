@@ -1,0 +1,13 @@
+pkgbase = fzpac-git
+	pkgdesc = Arch Linux package finder with fzf
+	pkgver = HEAD
+	pkgrel = 1
+	url = https://github.com/sheepla/fzpac
+	arch = any
+	license = MIT
+	depends = fzf
+	source = fzpac::git+https://github.com/sheepla/fzpac.git
+	md5sums = SKIP
+
+pkgname = fzpac-git
+

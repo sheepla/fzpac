@@ -1,0 +1,34 @@
+# Maintainer Sheepla
+pkgname=fzpac-git
+_pkgname=${pkgname//-git}
+pkgver=HEAD
+pkgrel=1
+pkgdesc="Arch Linux package finder with fzf"
+arch=("any")
+url="https://github.com/sheepla/fzpac"
+license=("MIT")
+groups=()
+depends=("fzf")
+makedepends=()
+optdepends=(
+    "bash-completion: for bash completion support"
+    "zsh-completions: for zsh completion support"
+    "fish: for zsh completion support"
+    "yay: for AUR helper support"
+    "paru: for AUR helper support"
+)
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("${_pkgname}::git+${url}.git")
+noextract=()
+md5sums=("SKIP")
+
+package() {
+    cd "${srcdir}/${_pkgname}"
+    PREFIX="${pkgdir}/usr" make install
+}
