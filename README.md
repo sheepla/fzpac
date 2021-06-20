@@ -10,7 +10,7 @@
 
 <image src="./img/screenshot.png" width="70%">
 
-## Try `fzpac`
+## Try fzpac
 
 To try `fzpac` quickly, run the following command:
 
@@ -20,7 +20,11 @@ curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x f
 
 ## Usage
 
-### Run This Command
+1. Run this command
+2. Select the packages with `fzf`
+3. View info, install or uninstall
+
+### Help
 
 ```
 fzpac -- Arch Linux package finder with fzf
