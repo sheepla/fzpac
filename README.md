@@ -22,7 +22,7 @@ curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x f
 
 1. Run this command
 2. Select the packages with `fzf`
-3. View info, install or uninstall
+3. You can view the package info or install / uninstall it immediately
 
 ### Help
 
