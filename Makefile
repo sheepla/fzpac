@@ -12,7 +12,7 @@ FISH_COMPLETION_SRC_PATH := completions/fish/fzpac.fish
 FISH_COMPLETION_DEST_PATH := $(SHAREDIR)/fish/completions/fzpac.fish
 
 ZSH_COMPLETION_SRC_PATH := completions/zsh/_fzpac
-ZSH_COMPLETION_DEST_PATH := $(SHAREDIR)/zsh/site-functions
+ZSH_COMPLETION_DEST_PATH := $(SHAREDIR)/zsh/site-functions/_fzpac
 
 .PHONY: echo
 echo:
