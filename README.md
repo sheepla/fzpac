@@ -161,10 +161,10 @@ sudo make install
 
 ### Install with PKGBUILD
 
-*WARNING* This installation method is under testing!
+*WARNING*: This installation method is under testing!
 
-Run below if you want to install `fzpac` and completion file of the shells with PKGBUILD.
-After a successful installation, you can manage fzpac as an Arch Linux package.
+Run below if you want to install `fzpac` and completion file of the shells with `PKGBUILD`.
+After a successful installation, you can manage `fzpac` as an Arch Linux package.
 
 ```bash
 sudo pacman -S --needed base-devel
@@ -173,6 +173,6 @@ cd aur
 makepkg -si
 ```
 
-## Contribute
+## Contribution
 
 Issue & PR is welcome!❤
