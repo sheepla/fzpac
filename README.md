@@ -147,7 +147,7 @@ compinit -u
 
 ### Installation
 
-Run below if you want to install `fzpac` and `bash-completion` for `fzpac`.
+Run below if you want to install `fzpac` and `bash`, `fish` and `zsh` completion file for `fzpac`.
 
 ```bash
 git clone https://github.com/sheepla/fzpac
