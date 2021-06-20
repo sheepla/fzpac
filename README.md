@@ -4,9 +4,9 @@
 
 ## Features
 
-- Quickly find the packages you are looking for with fuzzy search and preview.
-- You can immediately install / uninstall the packages that you selected.
-- Supports tab completion in `bash`, `fish` and `zsh`.
+- 🚀 Quickly find the packages you are looking for with fuzzy search and preview.
+- ✅ You can immediately install / uninstall the packages that you selected.
+- ⌨ Supports tab completion in `bash`, `fish` and `zsh`.
 
 <image src="./img/screenshot.png" width="70%">
 
@@ -173,6 +173,6 @@ cd aur
 makepkg -si
 ```
 
-### Development
+## Contribute
 
 Issue & PR is welcome!❤
