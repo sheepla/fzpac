@@ -159,7 +159,7 @@ cd fzpac
 sudo make install
 ```
 
-## Install with PKGBUILD
+### Install with PKGBUILD
 
 *WARNING* This installation method is under testing!
 
