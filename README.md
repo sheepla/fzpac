@@ -151,12 +151,26 @@ compinit -u
 
 ### Install fzpac
 
-Run below if you want to install `fzpac` and completion file of the shells for `fzpac`.
+Run below if you want to install `fzpac` and completion file of the shells.
 
 ```bash
 git clone https://github.com/sheepla/fzpac
 cd fzpac
 sudo make install
+```
+
+## Install with PKGBUILD
+
+*WARNING* This installation method is under testing!
+
+Run below if you want to install `fzpac` and completion file of the shells with PKGBUILD.
+After a successful installation, you can manage fzpac as an Arch Linux package.
+
+```bash
+sudo pacman -S --needed base-devel
+git clone https://github.com/sheepla/fzpac
+cd aur
+makepkg -si
 ```
 
 ### Development
