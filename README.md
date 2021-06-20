@@ -149,7 +149,7 @@ autoload -U compinit
 compinit -u
 ```
 
-### Installation
+### Install fzpac
 
 Run below if you want to install `fzpac` and completion file of the shells for `fzpac`.
 
