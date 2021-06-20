@@ -96,7 +96,7 @@ If you have the following AUR helpers installed, `fzpac` will use that command i
     <li><a href="https://github.com/Jguer/yay">Jguer/yay</a></li>
 </ul>
 
-#### Tab Completion
+#### Tab Completion on the Shells
 
 ##### bash
 
@@ -106,7 +106,7 @@ To use Tab completion with bash, install the `bash-completion` package.
 sudo pacman -S bash-completion
 ```
 
-Then, add the following contents to your `~/.bashrc` .
+then, add the following contents to your `~/.bashrc` .
 
 ```bash
 _set_completion() {
@@ -120,25 +120,17 @@ _set_completion
 
 ##### fish
 
-To use Tab completion with `fish`, copy `completions/fish/fzpac.fish` to `$HOME/.config/fish/completions` directory.
-
-```fish
-git clone https://github.com/sheepla/fzpac
-cd fzpac
-cp -p completions/fish/fzpac.fish $HOME/.config/fish/completions
-```
+Complete functions are built into `fish` so you don't need to install any additional packages.
 
 ##### zsh
 
-To use Tab completion with zsh, copy `completions/zsh/_fzpac` to your `$fpath`.
+To use Tab completion with zsh, requires `zsh-completions` package.
 
-```bash
-git clone https://github.com/sheepla/fzpac
-cd fzpac
-cp -p completions/zsh/_fzpac {path to your fpath}
+```zsh
+sudo pacman -S zsh-completions
 ```
 
-And activate zsh completions on your `.zshrc`.
+then, activate zsh completions on your `.zshrc`.
 
 ```.zshrc
 autoload -U compinit
@@ -147,39 +139,13 @@ compinit -u
 
 ### Installation
 
-Run below if you want to install `fzpac` and `bash`, `fish` and `zsh` completion file for `fzpac`.
+Run below if you want to install `fzpac` and completion file of the shells for `fzpac`.
 
 ```bash
 git clone https://github.com/sheepla/fzpac
 cd fzpac
 sudo make install
 ```
-
-### Manual Installation
-
-<details>
-<summary>To install manually...</summary>
-<div>
-Download `fzpac` and add execution permission.
-
-```bash
-# wget
-wget https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpac
-
-# curl
-curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpac
-```
-
-Run below if you want to use `bash-completion` for `fzpac`.
-
-```bash
-wget -O fzpac https://raw.githubusercontent.com/sheepla/fzpac/main/completions/bash/fzpac
-sudo install -o root -g root -m 0644 fzpac /usr/share/bash-completion/completions/fzpac
-# or curl
-```
-
-</div>
-</details>
 
 ### Development
 
