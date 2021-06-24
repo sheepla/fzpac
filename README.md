@@ -168,8 +168,9 @@ After a successful installation, you can manage `fzpac` as an Arch Linux package
 
 ```bash
 sudo pacman -S --needed base-devel
-git clone https://github.com/sheepla/fzpac
-cd aur
+mkdir fzpac
+curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/aur/PKGBUILD
+cd fzpac
 makepkg -si
 ```
 
