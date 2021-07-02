@@ -7,8 +7,8 @@ _fzpac() {
 		{q,select-local}"[Search for and select installed packages.]" \
 		{i,info}"[Search for all available packages, and show detail information that you selected.]" \
 		{l,info-local}"[Same as 'info', but searches for installed packages. instead of all available packages.]" \
-		{p,view}"[Search for all available packages, and browse the details of the selected one using less pager.]" \
-		{v,view-local}"[Savem as 'view', but searches for installed packages instead of all available packages.]" \
+		{b,browse}"[Search for all available packages, and browse the details of the selected one using less pager.]" \
+		{v,browse-local}"[Savem as 'view', but searches for installed packages instead of all available packages.]" \
 		{S,install}"[Select packages and install that you selected.]" \
 		{R,remove}"[Select packages and uninstall that you selected.]" \
 		{A,autoremove}"[Select packages that are no longer needed and UNINSTALL it.]" \

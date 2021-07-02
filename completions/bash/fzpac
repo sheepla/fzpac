@@ -5,7 +5,7 @@ _fzpac_module() {
 	_get_comp_words_by_ref -n : cur prev cword
 
 	if [[ "${cword}" -eq 1 ]]; then
-		local subcmds="select select-local info info-local view view-local install remove autoremove help version"
+		local subcmds="select select-local info info-local browse browse-local install remove autoremove help version"
 		COMPREPLY=($(compgen -W "${subcmds}" -- "${cur}"))
 	fi
 }
