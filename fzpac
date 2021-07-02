@@ -102,27 +102,27 @@ _main() {
 		case "${arg}" in
 		s | select)
 			shift
-			_select_available_pkgs "${pacman_cmd}" "${@}"
+			_select_from_all_pkgs "${pacman_cmd}" "${@}"
 			break
 			;;
 		q | select-local)
 			shift
-			_select_local_pkgs "${pacman_cmd}" "${@}"
+			_select_from_local_pkgs "${pacman_cmd}" "${@}"
 			break
 			;;
 		i | info)
 			shift
-			_select_available_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --sync --info --info -
+			_select_from_all_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --sync --info --info -
 			break
 			;;
 		l | info-local)
 			shift
-			_select_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --query --info --info -
+			_select_from_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --query --info --info -
 			break
 			;;
 		p | view)
 			shift
-			_view_available_pkgs "${pacman_cmd}" "${@}"
+			_view_all_pkgs "${pacman_cmd}" "${@}"
 			break
 			;;
 		v | view-local)
@@ -133,18 +133,18 @@ _main() {
 		S | install)
 			shift
 			if [ "${pacman_cmd}" = 'pacman' ]; then
-				_select_available_pkgs pacman "${@}" | sudo pacman --sync -
+				_select_from_all_pkgs pacman "${@}" | sudo pacman --sync -
 			else
-				_select_available_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --sync -
+				_select_from_all_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --sync -
 			fi
 			break
 			;;
 		R | remove)
 			shift
 			if [ "${pacman_cmd}" = 'pacman' ]; then
-				_select_local_pkgs pacman "${@}" | sudo pacman --remove --nosave -
+				_select_from_local_pkgs pacman "${@}" | sudo pacman --remove --nosave -
 			else
-				_select_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --remove --nosave -
+				_select_from_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --remove --nosave -
 			fi
 			break
 			;;
@@ -178,14 +178,14 @@ _err() {
 	echo -e "[ \e[31mERR\e[m ] ${*}" >&2
 }
 
-_select_available_pkgs() {
+_select_from_all_pkgs() {
 	local pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" --sync --search --quiet "${@}" |
 		_fzf --multi --preview "${pacman_cmd} --sync --info {}"
 }
 
-_select_local_pkgs() {
+_select_from_local_pkgs() {
 	local pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" --query --search --quiet "${@}" |
@@ -199,7 +199,7 @@ _select_from_non_required_pkgs() {
 		_fzf --multi --preview "${pacman_cmd} --query --info --list {}"
 }
 
-_view_available_pkgs() {
+_view_all_pkgs() {
 	local pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" --sync --search --quiet "${@}" |
