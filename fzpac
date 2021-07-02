@@ -39,10 +39,10 @@ SUBCMD
                      RUN:        pacman -Qsq -> fzf -> pacman -Qil
                      STDOUT:     detailed information on selected packages
 
-    p, view          SEARCH FOR: all available packages
+    b, browse        SEARCH FOR: all available packages
                      RUN:        pacman -Ssq -> fzf <--> pacman -Sii|less
                      STDOUT:     none
-    v, view-local    SEARCH FOR: already installed packages
+    v, browse-local  SEARCH FOR: already installed packages
                      RUN:        pacman -Qsq -> fzf <--> pacman -Qil|less
                      STDOUT:     none
 
@@ -122,14 +122,14 @@ _main() {
 			_select_from_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --query --info --info -
 			break
 			;;
-		p | view)
+		b | browse)
 			shift
-			_view_all_pkgs "${pacman_cmd}" "${@}"
+			_browse_all_pkgs "${pacman_cmd}" "${@}"
 			break
 			;;
-		v | view-local)
+		v | browse-local)
 			shift
-			_view_local_pkgs "${pacman_cmd}" "${@}"
+			_browse_local_pkgs "${pacman_cmd}" "${@}"
 			break
 			;;
 		S | install)
@@ -201,7 +201,7 @@ _select_from_non_required_pkgs() {
 		_fzf --multi --preview "${pacman_cmd} --query --info --list {}"
 }
 
-_view_all_pkgs() {
+_browse_all_pkgs() {
 	local pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" --sync --search --quiet "${@}" |
@@ -209,7 +209,7 @@ _view_all_pkgs() {
 			--bind "enter:execute(${pacman_cmd} --sync --info --info {} | less)"
 }
 
-_view_local_pkgs() {
+_browse_local_pkgs() {
 	local pacman_cmd="$1"
 	shift
 	"${pacman_cmd}" -Qsq "${@}" |
