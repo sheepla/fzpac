@@ -64,11 +64,13 @@ SUBCMD
 EOF
 }
 
-_test_fzf() {
-	if ! command -v fzf &>/dev/null; then
-		_err "fzf is not installed. please install it."
-		exit 1
-	fi
+_test_cmd() {
+    for cmd in "${@}"; do
+        if ! command -v "${cmd}" &>/dev/null; then
+            _err "${cmd} is not installed. please install it."
+            return 1
+        fi
+    done
 }
 
 _get_pacman_cmd() {
@@ -93,7 +95,7 @@ _main() {
 		exit 0
 	fi
 
-	_test_fzf
+	_test_cmd fzf || return 1
 
 	local pacman_cmd
 	pacman_cmd="$(_get_pacman_cmd)"
