@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 
 readonly THIS_CMD="${0##*/}"
-readonly VERSION='1.3.1'
+readonly VERSION='1.3.2'
 readonly PACMANS=(
 	"paru"
 	"yay"

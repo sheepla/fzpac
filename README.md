@@ -72,7 +72,6 @@ SUBCMD
 
     h, help          Show this usage.
     V, version       Show version.
-
 ```
 
 ### Select the Packages with `fzf`
