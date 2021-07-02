@@ -1,6 +1,6 @@
 <h1><div align="center"> 🔎 fzpac</div></h1>
 
-<div align="center"><i>fzpac</i> is an Arch Linux package finder with fzf.</div>
+<div align="center"> *fzpac* is a `pacman` wrapper, an Arch Linux package finder with `fzf`.</div>
 
 ## Features
 
