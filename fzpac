@@ -73,7 +73,7 @@ _test_cmd() {
     done
 }
 
-_get_pacman_cmd() {
+_pacman() {
 	local _cmd
 	for _cmd in "${PACMANS[@]}"; do
 		if command -v "${_cmd}" &>/dev/null; then
@@ -98,7 +98,7 @@ _main() {
 	_test_cmd fzf || return 1
 
 	local pacman_cmd
-	pacman_cmd="$(_get_pacman_cmd)"
+	pacman_cmd="$(_pacman)"
 
 	for arg in "${@}"; do
 		case "${arg}" in
