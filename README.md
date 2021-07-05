@@ -1,4 +1,8 @@
-<h1><div align="center"> 🔎 fzpac</div></h1>
+<div align="center"><h1> 🔎 fzpac</h1></div>
+
+<div align="right">
+    <img src="https://img.shields.io/static/v1?label=Language&message=shell&color=blue&style=flat-square"/>
+</div>
 
 <div align="center">
     
