@@ -2,6 +2,7 @@
 
 <div align="right">
     <img src="https://img.shields.io/static/v1?label=Language&message=shell&color=blue&style=flat-square"/>
+    <img src="https://img.shields.io/static/v1?label=License&message=MIT&color=blue&style=flat-square"/>
 </div>
 
 <div align="center">
