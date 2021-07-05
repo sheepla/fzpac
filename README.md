@@ -51,10 +51,10 @@ SUBCMD
                      RUN:        pacman -Qsq -> fzf -> pacman -Qil
                      STDOUT:     detailed information on selected packages
 
-    p, view          SEARCH FOR: all available packages
+    b, browse        SEARCH FOR: all available packages
                      RUN:        pacman -Ssq -> fzf <--> pacman -Sii|less
                      STDOUT:     none
-    v, view-local    SEARCH FOR: already installed packages
+    v, browse-local  SEARCH FOR: already installed packages
                      RUN:        pacman -Qsq -> fzf <--> pacman -Qil|less
                      STDOUT:     none
 
