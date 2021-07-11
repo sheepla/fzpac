@@ -69,12 +69,12 @@ EOF
 }
 
 _test_cmd() {
-    for cmd in "${@}"; do
-        if ! command -v "${cmd}" &>/dev/null; then
-            _err "${cmd} is not installed. please install it."
-            return 1
-        fi
-    done
+	for cmd in "${@}"; do
+		if ! command -v "${cmd}" &>/dev/null; then
+			_err "${cmd} is not installed. please install it."
+			return 1
+		fi
+	done
 }
 
 _pacman() {
