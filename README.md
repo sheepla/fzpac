@@ -26,7 +26,7 @@
 To try `fzpac` quickly, run the following command:
 
 ```bash
-curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/fzpac && chmod +x fzpac
+curl -LO git.io/fzpac && chmod +x fzpac
 ```
 
 ## Usage
