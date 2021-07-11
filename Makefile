@@ -65,5 +65,5 @@ format:
 .PHONY: lint
 lint:
 	shellcheck $(FZPAC_SRC_PATH)
-	shellcheck $(BASH_COMPLETION_SRC_PATH)
-	shellcheck $(ZSH_COMPLETION_SRC_PATH)
+	#shellcheck $(BASH_COMPLETION_SRC_PATH)
+	#shellcheck $(ZSH_COMPLETION_SRC_PATH)
