@@ -5,6 +5,9 @@ set -o nounset
 
 readonly THIS_CMD="${0##*/}"
 readonly VERSION='1.3.2'
+readonly AUTHOR_URL="https://github.com/sheepla"
+readonly REPO_URL="${AUTHOR_URL}/fzpac"
+
 readonly PACMANS=(
 	"paru"
 	"yay"
@@ -14,7 +17,8 @@ readonly PACMANS=(
 _version() {
 	echo -e "$THIS_CMD -- v$VERSION
 Released under the MIT License.
-    https://github.com/sheepla/fzpac"
+    Repo:   ${REPO_URL}
+    Author: sheepla (${AUTHOR_URL})"
 }
 
 _help() {
