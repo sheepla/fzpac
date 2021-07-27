@@ -4,9 +4,6 @@ set -o errexit
 set -o nounset
 
 readonly THIS_CMD="${0##*/}"
-readonly VERSION='1.3.2'
-readonly AUTHOR_URL="https://github.com/sheepla"
-readonly REPO_URL="${AUTHOR_URL}/fzpac"
 
 readonly PACMANS=(
 	"paru"
@@ -15,10 +12,15 @@ readonly PACMANS=(
 )
 
 _version() {
+    readonly VERSION='1.3.2'
+    readonly AUTHOR="sheepla"
+    readonly LICENSE="MIT"
+    readonly GITHUB_URL="https://github.com"
+
 	echo -e "$THIS_CMD -- v$VERSION
-Released under the MIT License.
-    Repo:   ${REPO_URL}
-    Author: sheepla (${AUTHOR_URL})"
+Released under the ${LICENSE} License.
+    Repo:   ${GITHUB_URL}/${AUTHOR}/fzpac
+    Author: ${AUTHOR} (${GITHUB_URL}/${AUTHOR})"
 }
 
 _help() {
