@@ -177,10 +177,13 @@ Run below if you want to install `fzpac` and completion file of the shells with 
 After a successful installation, you can manage `fzpac` as an Arch Linux package.
 
 ```bash
+# install base-devel package
 sudo pacman -S --needed base-devel
-mkdir fzpac
-cd fzpac
+# cd to some empty directory to build package
+cd "$(mktemp -d)"
+# download PKGBUILD file
 curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/aur/PKGBUILD
+# build package and install
 makepkg -si
 ```
 
