@@ -152,7 +152,7 @@ To use Tab completion with zsh, requires `zsh-completions` package.
 sudo pacman -S zsh-completions
 ```
 
-then, activate zsh completions on your `.zshrc`.
+then, append this commands on your `.zshrc` to activate completion.
 
 ```.zshrc
 autoload -U compinit
@@ -161,7 +161,7 @@ compinit -u
 
 ### Install fzpac
 
-Run below if you want to install `fzpac` and completion file of the shells.
+Run below if you want to install `fzpac`
 
 ```bash
 git clone https://github.com/sheepla/fzpac
@@ -171,7 +171,7 @@ sudo make install
 
 ### Install with PKGBUILD
 
-Run below if you want to install `fzpac` and completion file of the shells with `PKGBUILD`.
+Run below if you want to install `fzpac` with `PKGBUILD`.
 After a successful installation, you can manage `fzpac` as an Arch Linux package.
 
 ```bash
