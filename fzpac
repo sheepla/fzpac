@@ -25,10 +25,11 @@ Released under the ${LICENSE} License.
 
 _help() {
 	cat <<EOF
-$THIS_CMD -- Arch Linux package finder with fzf
+${THIS_CMD} -- Arch Linux package finder with fzf
 
 USAGE
-    $THIS_CMD SUBCMD KEYWORDS...
+    ${THIS_CMD} SUBCMD KEYWORDS...
+    ${THIS_CMD} --help|--version
 
 SUBCMD
     s, select        SEARCH FOR: all available packages
