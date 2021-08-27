@@ -1,4 +1,4 @@
-# Maintainer Sheepla
+# Maintainer sheepla <hk7g9x43 at anonaddy.me>
 pkgname=fzpac-git
 _pkgname=${pkgname//-git}
 pkgver=HEAD
@@ -13,7 +13,7 @@ makedepends=()
 optdepends=(
     "bash-completion: for bash completion support"
     "zsh-completions: for zsh completion support"
-    "fish: for zsh completion support"
+    "fish: for fish completion support"
     "yay: for AUR helper support"
     "paru: for AUR helper support"
 )
