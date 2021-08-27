@@ -58,9 +58,9 @@ uninstall:
 .PHONY: format
 format:
 	shfmt -w $(FZPAC_SRC_PATH)
-	shfmt -w $(BASH_COMPLETION_SRC_PATH)
-	shfmt -w $(FISH_COMPLETION_SRC_PATH)
-	shfmt -w $(ZSH_COMPLETION_SRC_PATH)
+	#shfmt -w $(BASH_COMPLETION_SRC_PATH)
+	#shfmt -w $(FISH_COMPLETION_SRC_PATH)
+	#shfmt -w $(ZSH_COMPLETION_SRC_PATH)
 
 .PHONY: lint
 lint:
