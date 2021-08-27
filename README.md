@@ -47,21 +47,21 @@ SUBCMD
     s, select        SEARCH FOR: all available packages
                      RUN:        pacman -Ssq -> fzf
                      STDOUT:     only names of selected packages
-    q, select-local  SEARCH FOR: already installed packages
+    sl, select-local SEARCH FOR: already installed packages
                      RUN:        pacman -Qsq -> fzf
                      STDOUT:     only names of selected packages
 
     i, info          SEARCH FOR: all available packages
                      RUN:        pacman -Ssq -> fzf -> pacman -Sii
                      STDOUT:     detailed information on selected packages
-    l, info-local    SEARCH FOR: already installed packages
+    il, info-local    SEARCH FOR: already installed packages
                      RUN:        pacman -Qsq -> fzf -> pacman -Qil
                      STDOUT:     detailed information on selected packages
 
     b, browse        SEARCH FOR: all available packages
                      RUN:        pacman -Ssq -> fzf <--> pacman -Sii|less
                      STDOUT:     none
-    v, browse-local  SEARCH FOR: already installed packages
+    bl, browse-local SEARCH FOR: already installed packages
                      RUN:        pacman -Qsq -> fzf <--> pacman -Qil|less
                      STDOUT:     none
 
@@ -79,6 +79,7 @@ SUBCMD
 
     h, help          Show this usage.
     V, version       Show version.
+
 ```
 
 ### Select the Packages with `fzf`
