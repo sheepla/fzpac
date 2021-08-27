@@ -3,17 +3,17 @@
 _fzpac() {
 	_values \
 		"sub-commands" \
-		{s,select}"[Search for and select all available packages.]" \
-		{q,select-local}"[Search for and select installed packages.]" \
-		{i,info}"[Search for all available packages, and show detail information that you selected.]" \
-		{l,info-local}"[Same as 'info', but searches for installed packages. instead of all available packages.]" \
-		{b,browse}"[Search for all available packages, and browse the details of the selected one using less pager.]" \
-		{v,browse-local}"[Savem as 'view', but searches for installed packages instead of all available packages.]" \
-		{S,install}"[Select packages and install that you selected.]" \
-		{R,remove}"[Select packages and uninstall that you selected.]" \
-		{A,autoremove}"[Select packages that are no longer needed and UNINSTALL it.]" \
-		{h,help}"[Show this usage.]" \
-		{V,version}"[Show version.]"
+		{s,select}"[search for all available packages]" \
+        {sl,select-local}"[search for already installed packages]" \
+		{i,info}"[show info of the packages that you selected]" \
+        {il,info-local}"[show info of the packages that you selected (search for already installed)]" \
+		{b,browse}"[browse the packages]" \
+        {bl,browse-local}"[browse the packages (search for already installed)]" \
+		{S,install}"[select the packages and INSTALL it]" \
+		{R,remove}"[select the packages and UNINSTALL it]" \
+		{A,autoremove}"[select the packages that are no longer needed and UNINSTALL it]" \
+		{h,help}"[show help message]" \
+		{V,version}"[show version]"
 }
 
 compdef _fzpac fzpac

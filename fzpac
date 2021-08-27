@@ -34,21 +34,21 @@ SUBCMD
     s, select        SEARCH FOR: all available packages
                      RUN:        pacman -Ssq -> fzf
                      STDOUT:     only names of selected packages
-    q, select-local  SEARCH FOR: already installed packages
+    sl, select-local SEARCH FOR: already installed packages
                      RUN:        pacman -Qsq -> fzf
                      STDOUT:     only names of selected packages
 
     i, info          SEARCH FOR: all available packages
                      RUN:        pacman -Ssq -> fzf -> pacman -Sii
                      STDOUT:     detailed information on selected packages
-    l, info-local    SEARCH FOR: already installed packages
+    il, info-local    SEARCH FOR: already installed packages
                      RUN:        pacman -Qsq -> fzf -> pacman -Qil
                      STDOUT:     detailed information on selected packages
 
     b, browse        SEARCH FOR: all available packages
                      RUN:        pacman -Ssq -> fzf <--> pacman -Sii|less
                      STDOUT:     none
-    v, browse-local  SEARCH FOR: already installed packages
+	bl, browse-local SEARCH FOR: already installed packages
                      RUN:        pacman -Qsq -> fzf <--> pacman -Qil|less
                      STDOUT:     none
 
@@ -113,7 +113,7 @@ _main() {
 			_select_from_all_pkgs "${pacman_cmd}" "${@}"
 			break
 			;;
-		q | select-local)
+		sl | select-local)
 			shift
 			_select_from_local_pkgs "${pacman_cmd}" "${@}"
 			break
@@ -123,7 +123,7 @@ _main() {
 			_select_from_all_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --sync --info --info -
 			break
 			;;
-		l | info-local)
+		il | info-local)
 			shift
 			_select_from_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --query --info --info -
 			break
@@ -133,7 +133,7 @@ _main() {
 			_browse_all_pkgs "${pacman_cmd}" "${@}"
 			break
 			;;
-		v | browse-local)
+		bl | browse-local)
 			shift
 			_browse_local_pkgs "${pacman_cmd}" "${@}"
 			break
