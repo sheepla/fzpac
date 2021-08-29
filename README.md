@@ -13,7 +13,8 @@
 
 ## Demo
 
-[![asciicast](https://asciinema.org/a/424902.svg)](https://asciinema.org/a/424902)
+
+[![asciicast](https://asciinema.org/a/432854.svg)](https://asciinema.org/a/432854)
 
 ## Features
 
