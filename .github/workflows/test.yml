@@ -1,0 +1,32 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'LICENSE'
+      - 'README.*'
+  pull_request:
+    paths-ignore:
+      - 'LICENSE'
+      - 'README.*'
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install formatter
+        run: make setup_tools
+      - name: Format
+        run: make check_format_on_docker
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install formatter
+        run: make setup_tools
+      - name: Format
+        run: make lint_on_docker
