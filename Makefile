@@ -22,6 +22,9 @@ LICENSE_DEST_PATH := $(SHAREDIR)/licenses/$(NAME)/LICENSE
 README_SRC_PATH := README.md
 README_DEST_PATH := $(SHAREDIR)/doc/$(NAME)/README.md
 
+DOCKER_TOOL_IMAGE := tools
+DOCKER_LINT_CMD := docker run --rm -v $$PWD:/work -w /work $(DOCKER_TOOL_IMAGE)
+
 .PHONY: echo
 echo:
 	echo FZPAC_SRC_PATH: $(FZPAC_SRC_PATH)
@@ -67,3 +70,15 @@ lint:
 	shellcheck $(FZPAC_SRC_PATH)
 	#shellcheck $(BASH_COMPLETION_SRC_PATH)
 	#shellcheck $(ZSH_COMPLETION_SRC_PATH)
+
+.PHONY: setup_tools
+setup_tools:
+	docker build -t $(DOCKER_TOOL_IMAGE) tools/linter
+
+.PHONY: check_format_on_docker
+check_format_on_docker:
+	$(DOCKER_LINT_CMD) shfmt -d $(FZPAC_SRC_PATH)
+
+.PHONY: lint_on_docker
+lint_on_docker:
+	$(DOCKER_LINT_CMD) shellcheck $(FZPAC_SRC_PATH)
