@@ -13,6 +13,7 @@
 
 ## Demo
 
+> [https://asciinema.org/a/432854](https://asciinema.org/a/432854)
 
 [![asciicast](https://asciinema.org/a/432854.svg)](https://asciinema.org/a/432854)
 
