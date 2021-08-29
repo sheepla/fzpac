@@ -28,7 +28,7 @@ _help() {
 ${THIS_CMD} -- Arch Linux package finder with fzf
 
 USAGE
-    ${THIS_CMD} SUBCMD KEYWORDS...
+    ${THIS_CMD} SUBCMD [KEYWORDS...]
     ${THIS_CMD} --help|--version
 
 SUBCMD
