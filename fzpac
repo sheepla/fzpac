@@ -21,7 +21,7 @@ _version() {
 $THIS_CMD -- v$VERSION
 Released under the ${LICENSE} License.
     Repo:   ${GITHUB_URL}/${AUTHOR}/fzpac
-    Author: ${AUTHOR} (${GITHUB_URL}/${AUTHOR})"
+    Author: ${AUTHOR} (${GITHUB_URL}/${AUTHOR})
 EOF
 }
 
@@ -102,7 +102,7 @@ _fzf() {
 }
 
 _main() {
-	if [[ $# -lt 1 ]]; then
+	if [[ "${#}" -lt 1 ]]; then
 		_help
 		exit 0
 	fi
