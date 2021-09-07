@@ -17,7 +17,7 @@ _version() {
 	readonly LICENSE="MIT"
 	readonly GITHUB_URL="https://github.com"
 
-    cat << EOF
+	cat <<EOF
 $THIS_CMD -- v$VERSION
 Released under the ${LICENSE} License.
     Repo:   ${GITHUB_URL}/${AUTHOR}/fzpac
