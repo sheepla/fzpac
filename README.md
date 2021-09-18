@@ -188,6 +188,20 @@ curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/aur/PKGBUILD
 makepkg -si
 ```
 
+## Configuration
+
+To change the AUR helper command to use, run fzpac with the value of the `"${FZPAC_PACMAN}"` variable set.
+
+```bash
+FZPAC_PACMAN="some-aur-helper-command" fzpac ...
+```
+
+To always use this setting, add the following line to your `~/.bashrc` or other shell rc file
+
+```bash
+export FZPAC_PACMAN="some-aur-helper-command"
+```
+
 ## Contribution
 
 Issue & PR is welcome!❤

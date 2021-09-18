@@ -5,7 +5,9 @@ set -o nounset
 
 readonly THIS_CMD="${0##*/}"
 
-readonly PACMANS=(
+readonly PACMAN="${FZPAC_PACMAN:-pacman}"
+
+readonly PACMAN_LIST=(
 	"paru"
 	"yay"
 	"pacman"
@@ -19,8 +21,12 @@ _version() {
 
 	cat <<EOF
 $THIS_CMD -- v$VERSION
+
 Released under the ${LICENSE} License.
     Repo:   ${GITHUB_URL}/${AUTHOR}/fzpac
+    Author: ${AUTHOR} (${GITHUB_URL}/${AUTHOR})"
+
+* ${THIS_CMD} uses this command as a pacman-like command: $(_pacman)
     Author: ${AUTHOR} (${GITHUB_URL}/${AUTHOR})
 EOF
 }
@@ -86,13 +92,18 @@ _test_cmd() {
 }
 
 _pacman() {
-	local _cmd
-	for _cmd in "${PACMANS[@]}"; do
-		if command -v "${_cmd}" &>/dev/null; then
-			echo -n "${_cmd}"
+	if [ ! "${PACMAN}" = "pacman" ]; then
+		echo -n "${PACMAN}"
+		return 0
+	fi
+
+	for pac in "${PACMAN_LIST[@]}"; do
+		if command -v "${pac}" &>/dev/null; then
+			echo -n "${pac}"
 			return 0
 		fi
 	done
+
 	_err 'The command for pacman or AUR helper was not found.'
 	exit 1
 }
@@ -109,65 +120,65 @@ _main() {
 
 	_test_cmd fzf || return 1
 
-	local pacman_cmd
-	pacman_cmd="$(_pacman)"
+	local pac
+	pac="$(_pacman)"
 
 	for arg in "${@}"; do
 		case "${arg}" in
 		s | select)
 			shift
-			_select_from_all_pkgs "${pacman_cmd}" "${@}"
+			_select_from_all_pkgs "${pac}" "${@}"
 			break
 			;;
 		sl | select-local)
 			shift
-			_select_from_local_pkgs "${pacman_cmd}" "${@}"
+			_select_from_local_pkgs "${pac}" "${@}"
 			break
 			;;
 		i | info)
 			shift
-			_select_from_all_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --sync --info --info -
+			_select_from_all_pkgs "${pac}" "${@}" | "${pac}" --sync --info --info -
 			break
 			;;
 		il | info-local)
 			shift
-			_select_from_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --query --info --info -
+			_select_from_local_pkgs "${pac}" "${@}" | "${pac}" --query --info --info -
 			break
 			;;
 		b | browse)
 			shift
-			_browse_all_pkgs "${pacman_cmd}" "${@}"
+			_browse_all_pkgs "${pac}" "${@}"
 			break
 			;;
 		bl | browse-local)
 			shift
-			_browse_local_pkgs "${pacman_cmd}" "${@}"
+			_browse_local_pkgs "${pac}" "${@}"
 			break
 			;;
 		S | install)
 			shift
-			if [ "${pacman_cmd}" = 'pacman' ]; then
+			if [ "${pac}" = "pacman" ]; then
 				_select_from_all_pkgs pacman "${@}" | sudo pacman --sync -
 			else
-				_select_from_all_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --sync -
+				_select_from_all_pkgs "${pac}" "${@}" | "${pac}" --sync -
 			fi
 			break
 			;;
 		R | remove)
 			shift
-			if [ "${pacman_cmd}" = 'pacman' ]; then
+			if [ "${pac}" = 'pacman' ]; then
 				_select_from_local_pkgs pacman "${@}" | sudo pacman --remove --nosave -
 			else
-				_select_from_local_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --remove --nosave -
+				_select_from_local_pkgs "${pac}" "${@}" | "${pac}" --remove --nosave -
 			fi
 			break
 			;;
 		A | autoremove)
 			shift
-			if [ "${pacman_cmd}" = 'pacman' ]; then
-				_select_from_non_required_pkgs "${pacman_cmd}" "${@}" | sudo pacman --remove --nosave --recursive -
+			if [ "${pac}" = 'pacman' ]; then
+				_select_from_non_required_pkgs "${pac}" "${@}" | sudo pacman --remove --nosave --recursive -
 			else
-				_select_from_non_required_pkgs "${pacman_cmd}" "${@}" | "${pacman_cmd}" --remove --nosave --recursive -
+				_select_from_non_required_pkgs "${pac}" "${@}" | "${pac}" --remove --nosave --recursive -
 			fi
 			break
 			;;
@@ -193,40 +204,40 @@ _err() {
 }
 
 _select_from_all_pkgs() {
-	local pacman_cmd="$1"
+	local pac="$1"
 	shift
-	"${pacman_cmd}" --sync --search --quiet "${@}" |
-		_fzf --multi --preview "${pacman_cmd} --sync --info {}"
+	"${pac}" --sync --search --quiet "${@}" |
+		_fzf --multi --preview "${pac} --sync --info {}"
 }
 
 _select_from_local_pkgs() {
-	local pacman_cmd="$1"
+	local pac="$1"
 	shift
-	"${pacman_cmd}" --query --search --quiet "${@}" |
-		_fzf --multi --preview "${pacman_cmd} --query --info --list {}"
+	"${pac}" --query --search --quiet "${@}" |
+		_fzf --multi --preview "${pac} --query --info --list {}"
 }
 
 _select_from_non_required_pkgs() {
-	local pacman_cmd="$1"
+	local pac="$1"
 	shift
-	"${pacman_cmd}" --query --deps --unrequired --quiet "${@}" |
-		_fzf --multi --preview "${pacman_cmd} --query --info --list {}"
+	"${pac}" --query --deps --unrequired --quiet "${@}" |
+		_fzf --multi --preview "${pac} --query --info --list {}"
 }
 
 _browse_all_pkgs() {
-	local pacman_cmd="$1"
+	local pac="$1"
 	shift
-	"${pacman_cmd}" --sync --search --quiet "${@}" |
-		_fzf --preview "${pacman_cmd} --sync --info {}" \
-			--bind "enter:execute(${pacman_cmd} --sync --info --info {} | less)"
+	"${pac}" --sync --search --quiet "${@}" |
+		_fzf --preview "${pac} --sync --info {}" \
+			--bind "enter:execute(${pac} --sync --info --info {} | less)"
 }
 
 _browse_local_pkgs() {
-	local pacman_cmd="$1"
+	local pac="$1"
 	shift
-	"${pacman_cmd}" -Qsq "${@}" |
-		_fzf --preview "${pacman_cmd} --query --info --list {}" \
-			--bind "enter:execute(${pacman_cmd} --query --info --list {} | less)"
+	"${pac}" -Qsq "${@}" |
+		_fzf --preview "${pac} --query --info --list {}" \
+			--bind "enter:execute(${pac} --query --info --list {} | less)"
 }
 
 _main "${@}"
