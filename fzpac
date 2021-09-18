@@ -27,7 +27,6 @@ Released under the ${LICENSE} License.
     Author: ${AUTHOR} (${GITHUB_URL}/${AUTHOR})"
 
 * ${THIS_CMD} uses this command as a pacman-like command: $(_pacman)
-    Author: ${AUTHOR} (${GITHUB_URL}/${AUTHOR})
 EOF
 }
 
