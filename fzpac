@@ -14,7 +14,7 @@ readonly PACMAN_LIST=(
 )
 
 _version() {
-	readonly VERSION='1.3.3'
+	readonly VERSION='1.3.4'
 	readonly AUTHOR="sheepla"
 	readonly LICENSE="MIT"
 	readonly GITHUB_URL="https://github.com"
