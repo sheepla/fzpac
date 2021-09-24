@@ -4,27 +4,29 @@ set -o errexit
 set -o nounset
 
 readonly THIS_CMD="${0##*/}"
-
 readonly PACMAN="${FZPAC_PACMAN:-pacman}"
-
 readonly PACMAN_LIST=(
 	"paru"
 	"yay"
 	"pacman"
 )
+readonly STYLE_BOLD=$'\033[1m'
+readonly STYLE_UNDERBAR=$'\033[4m'
+readonly STYLE_RESET=$'\033[m'
 
 _version() {
-	readonly VERSION='1.3.4'
+	readonly VERSION='2.0.0'
 	readonly AUTHOR="sheepla"
 	readonly LICENSE="MIT"
 	readonly GITHUB_URL="https://github.com"
 
 	cat <<EOF
-$THIS_CMD -- v$VERSION
+
+${STYLE_BOLD}${THIS_CMD}${STYLE_RESET} -- ${STYLE_UNDERBAR}v${VERSION}${STYLE_RESET}
 
 Released under the ${LICENSE} License.
     Repo:   ${GITHUB_URL}/${AUTHOR}/fzpac
-    Author: ${AUTHOR} (${GITHUB_URL}/${AUTHOR})"
+    Author: ${AUTHOR} (${GITHUB_URL}/${AUTHOR})
 
 * ${THIS_CMD} uses this command as a pacman-like command: $(_pacman)
 EOF
@@ -34,51 +36,99 @@ _help() {
 	cat <<EOF
 ${THIS_CMD} -- Arch Linux package finder with fzf
 
-USAGE
-    ${THIS_CMD} SUBCMD [KEYWORDS...]
-    ${THIS_CMD} --help|--version
+${STYLE_BOLD}USAGE${STYLE_RESET}
+    ${THIS_CMD} ${STYLE_UNDERBAR}SUBCMD${STYLE_RESET} [${STYLE_UNDERBAR}KEYWORDS...${STYLE_RESET}]
+    ${THIS_CMD} -h|--help
+    ${THIS_CMD} -v|--version
 
-SUBCMD
-    s, select        SEARCH FOR: all available packages
-                     RUN:        pacman -Ssq -> fzf
-                     STDOUT:     only names of selected packages
-    sl, select-local SEARCH FOR: already installed packages
-                     RUN:        pacman -Qsq -> fzf
-                     STDOUT:     only names of selected packages
-
-    i, info          SEARCH FOR: all available packages
-                     RUN:        pacman -Ssq -> fzf -> pacman -Sii
-                     STDOUT:     detailed information on selected packages
-    il, info-local   SEARCH FOR: already installed packages
-                     RUN:        pacman -Qsq -> fzf -> pacman -Qil
-                     STDOUT:     detailed information on selected packages
-
-    b, browse        SEARCH FOR: all available packages
-                     RUN:        pacman -Ssq -> fzf <--> pacman -Sii|less
-                     STDOUT:     none
-    bl, browse-local SEARCH FOR: already installed packages
-                     RUN:        pacman -Qsq -> fzf <--> pacman -Qil|less
-                     STDOUT:     none
-
-    S, install       select packages and INSTALL it.
-                     SEARCH FOR: all available packages
-                     RUN:        pacman -Ssq -> fzf -> sudo pacman -S
-
-    R, remove        select packages and UNINSTALL it.
-                     SEARCH FOR: already installed packages
-                     RUN:        pacman -Qsq -> fzf -> sudo pacman -Rn
-
-    A, autoremove    select packages that are no longer needed and UNINSTALL it.
-                     SEARCH FOR: dependencies that are no longer needed
-                     RUN:        pacman -Qdtq -> fzf -> sudo pacman -Rns
-
+${STYLE_BOLD}SUBCMD${STYLE_RESET}
+    s, search        search for all available packages
+    l, local         search for already installed packages
+    s, install       select packages and INSTALL it
+    R, remove        select packages and UNINSTALL it
+    A, autoremove    select packages that are no longer needed and UNINSTALL it
     h, help          show help message
-    V, version       show version
+    v, version       show version
 
-OPTIONS
-    --help           show help message
-    --version        show version
+${STYLE_BOLD}OPTIONS${STYLE_RESET}
+    -h, --help       show help message
+    -v, --version    show version
+
+${STYLE_BOLD}KEY BINDINGS${STYLE_RESET}
+    ${STYLE_UNDERBAR}<C-j>${STYLE_RESET}, ${STYLE_UNDERBAR}<C-n>${STYLE_RESET}  move focus down
+    ${STYLE_UNDERBAR}<C-k>${STYLE_RESET}, ${STYLE_UNDERBAR}<C-p>${STYLE_RESET}  move focus up
+    ${STYLE_UNDERBAR}<C-s>${STYLE_RESET}         show information of the package
+    ${STYLE_UNDERBAR}<Tab>${STYLE_RESET}         select a package
+    ${STYLE_UNDERBAR}<CR>${STYLE_RESET}          confirm selection
 EOF
+}
+
+_main() {
+	if [[ "${#}" -lt 1 ]]; then
+		_err "Must require arguments..."
+		_help
+		exit 1
+	fi
+
+	_test_cmd fzf || return 1
+
+	local pac
+	pac="$(_pacman)"
+
+	for arg in "${@}"; do
+		case "${arg}" in
+		s | search)
+			shift
+			_search "${pac}" "${@}"
+			break
+			;;
+		l | local)
+			shift
+			_search_local "${pac}" "${@}"
+			break
+			;;
+		S | install)
+			shift
+			if [ "${pac}" = "pacman" ]; then
+				_search pacman "${@}" | sudo pacman --sync -
+			else
+				_search "${pac}" "${@}" | "${pac}" --sync -
+			fi
+			break
+			;;
+		R | remove)
+			shift
+			if [ "${pac}" = 'pacman' ]; then
+				_search_local pacman "${@}" | sudo pacman --remove --nosave -
+			else
+				_search_local "${pac}" "${@}" | "${pac}" --remove --nosave -
+			fi
+			break
+			;;
+		A | autoremove)
+			shift
+			if [ "${pac}" = 'pacman' ]; then
+				_search_no_deps "${pac}" "${@}" | sudo pacman --remove --nosave --recursive -
+			else
+				_search_no_deps "${pac}" "${@}" | "${pac}" --remove --nosave --recursive -
+			fi
+			break
+			;;
+		h | -h | help | --help)
+			_help
+			break
+			;;
+		v | V | version | --version)
+			_version
+			break
+			;;
+		*)
+			_err "Invalid sub command: ${1}."
+			_help
+			return 1
+			;;
+		esac
+	done
 }
 
 _test_cmd() {
@@ -111,132 +161,47 @@ _fzf() {
 	env LANG=C fzf "${@}"
 }
 
-_main() {
-	if [[ "${#}" -lt 1 ]]; then
-		_help
-		exit 0
-	fi
-
-	_test_cmd fzf || return 1
-
-	local pac
-	pac="$(_pacman)"
-
-	for arg in "${@}"; do
-		case "${arg}" in
-		s | select)
-			shift
-			_select_from_all_pkgs "${pac}" "${@}"
-			break
-			;;
-		sl | select-local)
-			shift
-			_select_from_local_pkgs "${pac}" "${@}"
-			break
-			;;
-		i | info)
-			shift
-			_select_from_all_pkgs "${pac}" "${@}" | "${pac}" --sync --info --info -
-			break
-			;;
-		il | info-local)
-			shift
-			_select_from_local_pkgs "${pac}" "${@}" | "${pac}" --query --info --info -
-			break
-			;;
-		b | browse)
-			shift
-			_browse_all_pkgs "${pac}" "${@}"
-			break
-			;;
-		bl | browse-local)
-			shift
-			_browse_local_pkgs "${pac}" "${@}"
-			break
-			;;
-		S | install)
-			shift
-			if [ "${pac}" = "pacman" ]; then
-				_select_from_all_pkgs pacman "${@}" | sudo pacman --sync -
-			else
-				_select_from_all_pkgs "${pac}" "${@}" | "${pac}" --sync -
-			fi
-			break
-			;;
-		R | remove)
-			shift
-			if [ "${pac}" = 'pacman' ]; then
-				_select_from_local_pkgs pacman "${@}" | sudo pacman --remove --nosave -
-			else
-				_select_from_local_pkgs "${pac}" "${@}" | "${pac}" --remove --nosave -
-			fi
-			break
-			;;
-		A | autoremove)
-			shift
-			if [ "${pac}" = 'pacman' ]; then
-				_select_from_non_required_pkgs "${pac}" "${@}" | sudo pacman --remove --nosave --recursive -
-			else
-				_select_from_non_required_pkgs "${pac}" "${@}" | "${pac}" --remove --nosave --recursive -
-			fi
-			break
-			;;
-		h | -h | help | --help)
-			_help
-			break
-			;;
-		V | version | --version)
-			_version
-			break
-			;;
-		*)
-			_err "Invalid sub command: $1."
-			_help
-			return 1
-			;;
-		esac
-	done
-}
-
 _err() {
 	echo -e "[ \e[31mERR\e[m ] ${*}" >&2
 }
 
-_select_from_all_pkgs() {
-	local pac="$1"
+_search() {
+	local pac="${1}"
 	shift
+
+	readonly HEADER="<C-s>: show package info"
 	"${pac}" --sync --search --quiet "${@}" |
-		_fzf --multi --preview "${pac} --sync --info {}"
+		_fzf \
+			--multi \
+			--header "${HEADER}" \
+			--preview "${pac} --sync --info {}" \
+			--bind "ctrl-s:execute(env LANG=C ${pac} --sync --info {} | less)"
 }
 
-_select_from_local_pkgs() {
-	local pac="$1"
+_search_local() {
+	local pac="${1}"
 	shift
+
+	readonly HEADER="<C-s>: show package info"
 	"${pac}" --query --search --quiet "${@}" |
-		_fzf --multi --preview "${pac} --query --info --list {}"
+		_fzf \
+			--multi \
+			--header "${HEADER}" \
+			--preview "${pac} --query --info --list --quiet {}" \
+			--bind "ctrl-s:execute(env LANG=C ${pac} --query --info --list --quiet {} | less)"
 }
 
-_select_from_non_required_pkgs() {
-	local pac="$1"
+_search_no_deps() {
+	local pac="${1}"
 	shift
+
+	readonly HEADER="<C-s>: show package info"
 	"${pac}" --query --deps --unrequired --quiet "${@}" |
-		_fzf --multi --preview "${pac} --query --info --list {}"
-}
-
-_browse_all_pkgs() {
-	local pac="$1"
-	shift
-	"${pac}" --sync --search --quiet "${@}" |
-		_fzf --preview "${pac} --sync --info {}" \
-			--bind "enter:execute(${pac} --sync --info --info {} | less)"
-}
-
-_browse_local_pkgs() {
-	local pac="$1"
-	shift
-	"${pac}" -Qsq "${@}" |
-		_fzf --preview "${pac} --query --info --list {}" \
-			--bind "enter:execute(${pac} --query --info --list {} | less)"
+		_fzf \
+			--multi \
+			--header "${HEADER}" \
+			--preview "${pac} --query --info --list {}" \
+			--bind "ctrl-s:execute(env LANG=C ${pac} --query --info --list {} | less)"
 }
 
 _main "${@}"

@@ -19,9 +19,13 @@
 
 ## Features
 
-- 🚀 Quickly find the packages you are looking for with fuzzy search and preview.
-- ✅ You can immediately install / uninstall the packages that you selected.
-- ⌨ Supports tab completion in `bash`, `fish` and `zsh`.
+- [x] Quickly find the packages you are looking for with fuzzy search and preview.
+- [x] Uses easy-to-use APT-like subcommands
+- [x] You can immediately install / uninstall the packages that you selected.
+- [x] Supports Tab completion in multiple shells
+    - `bash` (`bash-completion` package required)
+    - `fish`
+    - `zsh` (`zsh-completions` package required)
 
 ## Try fzpac
 
@@ -37,64 +41,35 @@ curl -LO git.io/fzpac && chmod +x fzpac
 2. Select the packages with `fzf`
 3. You can view the package info or install / uninstall it immediately
 
-### Help
+### Help Message
 
 ```
 fzpac -- Arch Linux package finder with fzf
 
 USAGE
-    fzpac SUBCMD KEYWORDS...
+    fzpac SUBCMD [KEYWORDS...]
+    fzpac --help|--version
 
 SUBCMD
-    s, select        SEARCH FOR: all available packages
-                     RUN:        pacman -Ssq -> fzf
-                     STDOUT:     only names of selected packages
-    sl, select-local SEARCH FOR: already installed packages
-                     RUN:        pacman -Qsq -> fzf
-                     STDOUT:     only names of selected packages
+    s, search        search for all available packages
+    l, local         search for already installed packages
+    s, install       select packages and INSTALL it
+    R, remove        select packages and UNINSTALL it
+    A, autoremove    select packages that are no longer needed and UNINSTALL it.
+    h, help          show help message
+    v, version       show version
 
-    i, info          SEARCH FOR: all available packages
-                     RUN:        pacman -Ssq -> fzf -> pacman -Sii
-                     STDOUT:     detailed information on selected packages
-    il, info-local    SEARCH FOR: already installed packages
-                     RUN:        pacman -Qsq -> fzf -> pacman -Qil
-                     STDOUT:     detailed information on selected packages
+OPTIONS
+    -h, --help           show help message
+    -v, --version        show version
 
-    b, browse        SEARCH FOR: all available packages
-                     RUN:        pacman -Ssq -> fzf <--> pacman -Sii|less
-                     STDOUT:     none
-    bl, browse-local SEARCH FOR: already installed packages
-                     RUN:        pacman -Qsq -> fzf <--> pacman -Qil|less
-                     STDOUT:     none
-
-    S, install       Select packages and INSTALL it.
-                     SEARCH FOR: all available packages
-                     RUN:        pacman -Ssq -> fzf -> sudo pacman -S
-
-    R, remove        Select packages and UNINSTALL it.
-                     SEARCH FOR: already installed packages
-                     RUN:        pacman -Qsq -> fzf -> sudo pacman -Rn
-
-    A, autoremove    Select packages that are no longer needed and UNINSTALL it.
-                     SEARCH FOR: dependencies that are no longer needed
-                     RUN:        pacman -Qdtq -> fzf -> sudo pacman -Rns
-
-    h, help          Show this usage.
-    V, version       Show version.
-
+KEY BINDINGS
+    <C-j>, <C-n>  move focus down
+    <C-k>, <C-p>  move focus up
+    <C-s>         show information of the package
+    <Tab>         select a package
+    <CR>          confirm selection
 ```
-
-### Select the Packages with `fzf`
-
-When `fzf` is started, detailed information about the package will be displayed in the preview pane.
-
-- Press `Ctrl+N` / `Ctrl+P` or `Ctrl+J` / `Ctrl+K` to move focus.
-- You can select multiple items by pressing the `Tab` key.
-- Press `Enter` to confirm your selection.
-
-### View info / Install / Uninstall
-
-You can view detailed information of the packages that you selected or install / uninstall it.
 
 ## Installation
 
