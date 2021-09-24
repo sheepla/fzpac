@@ -65,7 +65,7 @@ EOF
 
 _main() {
 	if [[ "${#}" -lt 1 ]]; then
-        _err "Must require arguments..."
+		_err "Must require arguments..."
 		_help
 		exit 1
 	fi
@@ -166,7 +166,6 @@ _err() {
 }
 
 _search() {
-
 	local pac="${1}"
 	shift
 
