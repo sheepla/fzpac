@@ -54,6 +54,7 @@ ${STYLE_BOLD}OPTIONS${STYLE_RESET}
 ${STYLE_BOLD}KEY BINDINGS${STYLE_RESET}
     <C-j>, <C-n>  move focus down
     <C-k>, <C-p>  move focus up
+    <C-s>         show information of the package
     <Tab>         select a package
     <CR>          confirm selection
 EOF
@@ -153,7 +154,7 @@ _pacman() {
 }
 
 _fzf() {
-	env LANG=C fzf --ansi --reverse "${@}"
+	env LANG=C fzf "${@}"
 }
 
 _err() {
@@ -161,24 +162,43 @@ _err() {
 }
 
 _search() {
+
 	local pac="${1}"
 	shift
+
+	readonly HEADER="<C-s>: show package info"
 	"${pac}" --sync --search --quiet "${@}" |
-		_fzf --multi --preview "${pac} --sync --info {}"
+		_fzf \
+			--multi \
+			--header "${HEADER}" \
+			--preview "${pac} --sync --info {}" \
+			--bind "ctrl-s:execute(env LANG=C ${pac} --sync --info {} | less)"
 }
 
 _search_local() {
 	local pac="${1}"
 	shift
+
+	readonly HEADER="<C-s>: show package info"
 	"${pac}" --query --search --quiet "${@}" |
-		_fzf --multi --preview "${pac} --query --info --list {}"
+		_fzf \
+			--multi \
+			--header "${HEADER}" \
+			--preview "${pac} --query --info --list --quiet {}" \
+			--bind "ctrl-s:execute(env LANG=C ${pac} --query --info --list --quiet {} | less)"
 }
 
 _search_no_deps() {
 	local pac="${1}"
 	shift
+
+	readonly HEADER="<C-s>: show package info"
 	"${pac}" --query --deps --unrequired --quiet "${@}" |
-		_fzf --multi --preview "${pac} --query --info --list {}"
+		_fzf \
+			--multi \
+			--header "${HEADER}" \
+			--preview "${pac} --query --info --list {}" \
+			--bind "ctrl-s:execute(env LANG=C ${pac} --query --info --list {} | less)"
 }
 
 _main "${@}"
