@@ -3,17 +3,13 @@
 _fzpac() {
 	_values \
 		"sub-commands" \
-		{s,select}"[search for all available packages]" \
-        {sl,select-local}"[search for already installed packages]" \
-		{i,info}"[show info of the packages that you selected]" \
-        {il,info-local}"[show info of the packages that you selected (search for already installed)]" \
-		{b,browse}"[browse the packages]" \
-        {bl,browse-local}"[browse the packages (search for already installed)]" \
-		{S,install}"[select the packages and INSTALL it]" \
-		{R,remove}"[select the packages and UNINSTALL it]" \
-		{A,autoremove}"[select the packages that are no longer needed and UNINSTALL it]" \
+		{s,search}"[search for all available packages]" \
+		{l,local}"[search for already installed packages]" \
+		{s,install}"[select packages and INSTALL it]" \
+		{R,remove}"[select packages and UNINSTALL it]" \
+		{A,autoremove}"[select packages that are no longer needed and UNINSTALL it]" \
 		{h,help}"[show help message]" \
-		{V,version}"[show version]"
+		{v,version}"[show version]"
 }
 
 compdef _fzpac fzpac
