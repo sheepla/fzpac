@@ -51,8 +51,8 @@ ${STYLE_BOLD}SUBCMD${STYLE_RESET}
     v, version       show version
 
 ${STYLE_BOLD}OPTIONS${STYLE_RESET}
-    -h, --help           show help message
-    -v, --version        show version
+    -h, --help       show help message
+    -v, --version    show version
 
 ${STYLE_BOLD}KEY BINDINGS${STYLE_RESET}
     ${STYLE_UNDERBAR}<C-j>${STYLE_RESET}, ${STYLE_UNDERBAR}<C-n>${STYLE_RESET}  move focus down
@@ -65,8 +65,9 @@ EOF
 
 _main() {
 	if [[ "${#}" -lt 1 ]]; then
+        _err "Must require arguments..."
 		_help
-		exit 0
+		exit 1
 	fi
 
 	_test_cmd fzf || return 1
