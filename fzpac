@@ -11,6 +11,7 @@ readonly PACMAN_LIST=(
 	"pacman"
 )
 readonly STYLE_BOLD=$'\033[1m'
+readonly STYLE_UNDERBAR=$'\033[4m'
 readonly STYLE_RESET=$'\033[m'
 
 _version() {
@@ -20,11 +21,12 @@ _version() {
 	readonly GITHUB_URL="https://github.com"
 
 	cat <<EOF
-$THIS_CMD -- v$VERSION
+
+${STYLE_BOLD}${THIS_CMD}${STYLE_RESET} -- ${STYLE_UNDERBAR}v${VERSION}${STYLE_RESET}
 
 Released under the ${LICENSE} License.
     Repo:   ${GITHUB_URL}/${AUTHOR}/fzpac
-    Author: ${AUTHOR} (${GITHUB_URL}/${AUTHOR})"
+    Author: ${AUTHOR} (${GITHUB_URL}/${AUTHOR})
 
 * ${THIS_CMD} uses this command as a pacman-like command: $(_pacman)
 EOF
@@ -35,15 +37,16 @@ _help() {
 ${THIS_CMD} -- Arch Linux package finder with fzf
 
 ${STYLE_BOLD}USAGE${STYLE_RESET}
-    ${THIS_CMD} SUBCMD [KEYWORDS...]
-    ${THIS_CMD} --help|--version
+    ${THIS_CMD} ${STYLE_UNDERBAR}SUBCMD${STYLE_RESET} [${STYLE_UNDERBAR}KEYWORDS...${STYLE_RESET}]
+    ${THIS_CMD} -h|--help
+    ${THIS_CMD} -v|--version
 
 ${STYLE_BOLD}SUBCMD${STYLE_RESET}
     s, search        search for all available packages
     l, local         search for already installed packages
     s, install       select packages and INSTALL it
     R, remove        select packages and UNINSTALL it
-    A, autoremove    select packages that are no longer needed and UNINSTALL it.
+    A, autoremove    select packages that are no longer needed and UNINSTALL it
     h, help          show help message
     v, version       show version
 
@@ -52,11 +55,11 @@ ${STYLE_BOLD}OPTIONS${STYLE_RESET}
     -v, --version        show version
 
 ${STYLE_BOLD}KEY BINDINGS${STYLE_RESET}
-    <C-j>, <C-n>  move focus down
-    <C-k>, <C-p>  move focus up
-    <C-s>         show information of the package
-    <Tab>         select a package
-    <CR>          confirm selection
+    ${STYLE_UNDERBAR}<C-j>${STYLE_RESET}, ${STYLE_UNDERBAR}<C-n>${STYLE_RESET}  move focus down
+    ${STYLE_UNDERBAR}<C-k>${STYLE_RESET}, ${STYLE_UNDERBAR}<C-p>${STYLE_RESET}  move focus up
+    ${STYLE_UNDERBAR}<C-s>${STYLE_RESET}         show information of the package
+    ${STYLE_UNDERBAR}<Tab>${STYLE_RESET}         select a package
+    ${STYLE_UNDERBAR}<CR>${STYLE_RESET}          confirm selection
 EOF
 }
 
