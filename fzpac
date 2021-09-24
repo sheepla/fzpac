@@ -59,36 +59,6 @@ ${STYLE_BOLD}KEY BINDINGS${STYLE_RESET}
 EOF
 }
 
-_test_cmd() {
-	for cmd in "${@}"; do
-		if ! command -v "${cmd}" &>/dev/null; then
-			_err "${cmd} is not installed. please install it."
-			return 1
-		fi
-	done
-}
-
-_pacman() {
-	if [ ! "${PACMAN}" = "pacman" ]; then
-		echo -n "${PACMAN}"
-		return 0
-	fi
-
-	for pac in "${PACMAN_LIST[@]}"; do
-		if command -v "${pac}" &>/dev/null; then
-			echo -n "${pac}"
-			return 0
-		fi
-	done
-
-	_err 'The command for pacman or AUR helper was not found.'
-	exit 1
-}
-
-_fzf() {
-	env LANG=C fzf "${@}"
-}
-
 _main() {
 	if [[ "${#}" -lt 1 ]]; then
 		_help
@@ -156,26 +126,56 @@ _main() {
 	done
 }
 
+_test_cmd() {
+	for cmd in "${@}"; do
+		if ! command -v "${cmd}" &>/dev/null; then
+			_err "${cmd} is not installed. please install it."
+			return 1
+		fi
+	done
+}
+
+_pacman() {
+	if [ ! "${PACMAN}" = "pacman" ]; then
+		echo -n "${PACMAN}"
+		return 0
+	fi
+
+	for pac in "${PACMAN_LIST[@]}"; do
+		if command -v "${pac}" &>/dev/null; then
+			echo -n "${pac}"
+			return 0
+		fi
+	done
+
+	_err 'The command for pacman or AUR helper was not found.'
+	exit 1
+}
+
+_fzf() {
+	env LANG=C fzf --ansi --reverse "${@}"
+}
+
 _err() {
 	echo -e "[ \e[31mERR\e[m ] ${*}" >&2
 }
 
 _search() {
-	local pac="$1"
+	local pac="${1}"
 	shift
 	"${pac}" --sync --search --quiet "${@}" |
 		_fzf --multi --preview "${pac} --sync --info {}"
 }
 
 _search_local() {
-	local pac="$1"
+	local pac="${1}"
 	shift
 	"${pac}" --query --search --quiet "${@}" |
 		_fzf --multi --preview "${pac} --query --info --list {}"
 }
 
 _search_no_deps() {
-	local pac="$1"
+	local pac="${1}"
 	shift
 	"${pac}" --query --deps --unrequired --quiet "${@}" |
 		_fzf --multi --preview "${pac} --query --info --list {}"
