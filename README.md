@@ -162,16 +162,6 @@ autoload -U compinit
 compinit -u
 ```
 
-### Install fzpac
-
-Run below if you want to install `fzpac`
-
-```bash
-git clone https://github.com/sheepla/fzpac
-cd fzpac
-sudo make install
-```
-
 ### Install with PKGBUILD
 
 Run below if you want to install `fzpac` with `PKGBUILD`.
@@ -186,6 +176,16 @@ cd "$(mktemp -d)"
 curl -O https://raw.githubusercontent.com/sheepla/fzpac/main/aur/PKGBUILD
 # build package and install
 makepkg -si
+```
+
+### Install from the latest commit
+
+Run below if you want to install `fzpac`
+
+```bash
+git clone https://github.com/sheepla/fzpac
+cd fzpac
+sudo make install
 ```
 
 ## Configuration
