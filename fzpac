@@ -215,20 +215,22 @@ _search_no_deps() {
 
 _show_info() {
 	local pac="${1}"
+    local pkg="${2}"
 	shift 1
 
-	env LANG=C "${pac}" --sync --search --color=always "^${@}$"
+	env LANG=C "${pac}" --sync --search --color=always "^${pkg}$"
 	echo ""
-	env LANG=C "${pac}" --sync --info --color=always "${@}"
+	env LANG=C "${pac}" --sync --info --color=always "${pkg}"
 }
 
 _show_info_local() {
 	local pac="${1}"
+    local pkg="${2}"
 	shift 1
 
-	env LANG=C "${pac}" --query --search --color=always "^${@}$"
+	env LANG=C "${pac}" --query --search --color=always "^${pkg}$"
 	echo ""
-	env LANG=C "${pac}" --query --info --list --color=always "${@}"
+	env LANG=C "${pac}" --query --info --list --color=always "${pkg}"
 }
 
 _install() {
