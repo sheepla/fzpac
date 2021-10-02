@@ -215,7 +215,7 @@ _search_no_deps() {
 
 _show_info() {
 	local pac="${1}"
-    local pkg="${2}"
+	local pkg="${2}"
 	shift 1
 
 	env LANG=C "${pac}" --sync --search --color=always "^${pkg}$"
@@ -225,7 +225,7 @@ _show_info() {
 
 _show_info_local() {
 	local pac="${1}"
-    local pkg="${2}"
+	local pkg="${2}"
 	shift 1
 
 	env LANG=C "${pac}" --query --search --color=always "^${pkg}$"
