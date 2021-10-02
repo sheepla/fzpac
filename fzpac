@@ -166,42 +166,65 @@ _err() {
 }
 
 _search() {
+	readonly HEADER="<C-s>: show package info"
+
 	local pac="${1}"
 	shift
 
-	readonly HEADER="<C-s>: show package info"
+	export -f _show_info
+
 	"${pac}" --sync --search --quiet "${@}" |
 		_fzf \
 			--multi \
 			--header "${HEADER}" \
-			--preview "${pac} --sync --info {}" \
-			--bind "ctrl-s:execute(env LANG=C ${pac} --sync --info {} | less)"
+			--preview "_show_info ${pac} {}" \
+			--bind "ctrl-s:execute(_show_info ${pac} {} | less)"
 }
 
 _search_local() {
+	readonly HEADER="<C-s>: show package info"
+
 	local pac="${1}"
 	shift
 
-	readonly HEADER="<C-s>: show package info"
+	export -f _show_info_local
+
 	"${pac}" --query --search --quiet "${@}" |
 		_fzf \
 			--multi \
 			--header "${HEADER}" \
-			--preview "${pac} --query --info --list --quiet {}" \
-			--bind "ctrl-s:execute(env LANG=C ${pac} --query --info --list --quiet {} | less)"
+			--preview "_show_info_local ${pac} {}" \
+			--bind "ctrl-s:execute(_show_info_local ${pac} {} | less)"
 }
 
 _search_no_deps() {
+	readonly HEADER="<C-s>: show package info"
+
 	local pac="${1}"
 	shift
 
-	readonly HEADER="<C-s>: show package info"
+	export -f _show_info_local
+
 	"${pac}" --query --deps --unrequired --quiet "${@}" |
 		_fzf \
 			--multi \
 			--header "${HEADER}" \
-			--preview "${pac} --query --info --list {}" \
-			--bind "ctrl-s:execute(env LANG=C ${pac} --query --info --list {} | less)"
+			--preview "_show_info_local ${pac} {}" \
+			--bind "ctrl-s:execute(_show_info_local ${pac} {} | less)"
+}
+
+_show_info() {
+	local pac="${1}"
+	shift 1
+
+	env LANG=C "${pac}" --sync --info "${@}"
+}
+
+_show_info_local() {
+	local pac="${1}"
+	shift 1
+
+	env LANG=C "${pac}" --query --info --list "${@}"
 }
 
 _main "${@}"
