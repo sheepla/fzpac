@@ -231,8 +231,6 @@ _install() {
 	local pac="${1}"
 	shift 1
 
-	echo "${@}"
-
 	if [ "${pac}" = 'pacman' ]; then
 		sudo pacman --sync - <<<"${@}"
 	else
