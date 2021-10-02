@@ -89,29 +89,29 @@ _main() {
 			;;
 		S | install)
 			shift
-			if [ "${pac}" = "pacman" ]; then
-				_search pacman "${@}" | sudo pacman --sync -
-			else
-				_search "${pac}" "${@}" | "${pac}" --sync -
-			fi
+			local pkgs
+			pkgs=(
+				"$(_search "${pac}" "${@}")"
+			)
+			_install "${pac}" "${pkgs[@]}"
 			break
 			;;
 		R | remove)
 			shift
-			if [ "${pac}" = 'pacman' ]; then
-				_search_local pacman "${@}" | sudo pacman --remove --nosave -
-			else
-				_search_local "${pac}" "${@}" | "${pac}" --remove --nosave -
-			fi
+			local pkgs
+			pkgs=(
+				"$(_search_local "${pac}" "${@}")"
+			)
+			_remove "${pac}" "${pkgs[@]}"
 			break
 			;;
 		A | autoremove)
 			shift
-			if [ "${pac}" = 'pacman' ]; then
-				_search_no_deps "${pac}" "${@}" | sudo pacman --remove --nosave --recursive -
-			else
-				_search_no_deps "${pac}" "${@}" | "${pac}" --remove --nosave --recursive -
-			fi
+			local pkgs
+			pkgs=(
+				"$(_search_no_deps "${pac}" "${@}")"
+			)
+			_remove "${pac}" "${pkgs[@]}"
 			break
 			;;
 		h | -h | help | --help)
@@ -225,6 +225,30 @@ _show_info_local() {
 	shift 1
 
 	env LANG=C "${pac}" --query --info --list "${@}"
+}
+
+_install() {
+	local pac="${1}"
+	shift 1
+
+	echo "${@}"
+
+	if [ "${pac}" = 'pacman' ]; then
+		sudo pacman --sync - <<<"${@}"
+	else
+		"${pac}" --sync - <<<"${@}"
+	fi
+}
+
+_remove() {
+	local pac="${1}"
+	shift 1
+
+	if [ "${pac}" = 'pacman' ]; then
+		sudo pacman --remove --nosave - <<<"${@}"
+	else
+		"${pac}" --remove --nosave - <<<"${@}"
+	fi
 }
 
 _main "${@}"
