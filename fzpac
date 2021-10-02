@@ -118,7 +118,7 @@ _main() {
 			_help
 			break
 			;;
-		v | V | version | --version)
+		v | -v | version | --version)
 			_version
 			break
 			;;
