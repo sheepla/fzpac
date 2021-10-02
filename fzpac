@@ -217,14 +217,18 @@ _show_info() {
 	local pac="${1}"
 	shift 1
 
-	env LANG=C "${pac}" --sync --info "${@}"
+	env LANG=C "${pac}" --sync --search --color=always "^${@}$"
+	echo ""
+	env LANG=C "${pac}" --sync --info --color=always "${@}"
 }
 
 _show_info_local() {
 	local pac="${1}"
 	shift 1
 
-	env LANG=C "${pac}" --query --info --list "${@}"
+	env LANG=C "${pac}" --query --search --color=always "^${@}$"
+	echo ""
+	env LANG=C "${pac}" --query --info --list --color=always "${@}"
 }
 
 _install() {
