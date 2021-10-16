@@ -3,6 +3,8 @@
 set -o errexit
 set -o nounset
 
+readonly SHELL="$(which bash)"
+
 readonly THIS_CMD="${0##*/}"
 readonly PACMAN="${FZPAC_PACMAN:-pacman}"
 readonly PACMAN_LIST=(
