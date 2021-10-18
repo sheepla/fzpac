@@ -6,7 +6,7 @@
 </div>
 
 <div align="center">
-    
+
 `fzpac` is a `pacman` wrapper, an Arch Linux package finder with fuzzy finder.
 
 </div>
