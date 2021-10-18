@@ -19,7 +19,7 @@ _version() {
 	readonly LICENSE="MIT"
 	readonly GITHUB_URL="https://github.com"
 
-	cat <<EOF
+	echo -n -e "\
 
 ${STYLE_BOLD}${THIS_CMD}${STYLE_RESET} -- ${STYLE_UNDERBAR}v${VERSION}${STYLE_RESET}
 
@@ -28,11 +28,11 @@ Released under the ${LICENSE} License.
     Author: ${AUTHOR} (${GITHUB_URL}/${AUTHOR})
 
 * ${THIS_CMD} uses this command as a pacman-like command: $(_pacman)
-EOF
+"
 }
 
 _help() {
-	cat <<EOF
+	echo -n -e "\
 ${THIS_CMD} -- Arch Linux package finder with fuzzy finder
 
 ${STYLE_BOLD}USAGE${STYLE_RESET}
@@ -59,7 +59,7 @@ ${STYLE_BOLD}KEY BINDINGS${STYLE_RESET}
     ${STYLE_UNDERBAR}<C-s>${STYLE_RESET}         show information of the package
     ${STYLE_UNDERBAR}<Tab>${STYLE_RESET}         select a package
     ${STYLE_UNDERBAR}<CR>${STYLE_RESET}          confirm selection
-EOF
+"
 }
 
 _main() {
