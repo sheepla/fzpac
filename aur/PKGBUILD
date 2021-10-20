@@ -1,7 +1,7 @@
 # Maintainer sheepla <hk7g9x43 at anonaddy.me>
 
 pkgname=fzpac
-pkgver=2.0.2
+pkgver=2.0.3
 pkgrel=1
 pkgdesc="Arch Linux package finder with fzf"
 arch=("any")
@@ -11,6 +11,7 @@ groups=()
 depends=("fzf")
 makedepends=()
 optdepends=(
+    "skim: for another fuzzy finder support"
     "bash-completion: for bash completion support"
     "zsh-completions: for zsh completion support"
     "fish: for fish completion support"
@@ -26,7 +27,7 @@ install=
 changelog=
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
 noextract=()
-sha256sums=("53359695e3d0536d02c7ac4b22bea9657d4fe6b3459f4779544e3aa17f17c95b")
+sha256sums=("be7b031ac0d2115e5bc05e3865be864a92cd5777cb31db0f6e1c34a5df7d01d9")
 
 package() {
     cd "${srcdir}/${pkgname}-${pkgver}"
