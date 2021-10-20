@@ -77,8 +77,8 @@ KEY BINDINGS
 
 Requires `fzf`, `sk` or your favorite fuzzy finder, but recommended one is `fzf` or `sk` to use full features.
 
-<a href="https://github.com/junegunn/fzf">junegunn/fzf</a>
-<a href="https://https://github.com/lotabout/skim">lotabout/skim</a>
+- [junegunn/fzf](https://github.com/junegunn/fzf)
+- [lotabout/skim](https://https://github.com/lotabout/skim)
 
 If `fzf` or `sk` is not installed, install it with the following command:
 
@@ -144,7 +144,7 @@ autoload -U compinit
 compinit -u
 ```
 
-### Install with PKGBUILD
+### Install with PKGBUILD (Recommend)
 
 Run below if you want to install `fzpac` with `PKGBUILD`.
 After a successful installation, you can manage `fzpac` as an Arch Linux package.
