@@ -7,7 +7,7 @@
 
 <div align="center">
     
-`fzpac` is a `pacman` wrapper, an Arch Linux package finder with `fzf`.
+`fzpac` is a `pacman` wrapper, an Arch Linux package finder with `fuzzy finder`.
 
 </div>
 
@@ -38,13 +38,13 @@ curl -LO git.io/fzpac && chmod +x fzpac
 ## Usage
 
 1. Run this command
-2. Select the packages with `fzf`
+2. Select the packages with `fuzzy finder`
 3. You can view the package info or install / uninstall it immediately
 
 ### Help Message
 
 ```
-fzpac -- Arch Linux package finder with fzf
+fzpac -- Arch Linux package finder with fuzzy finder
 
 USAGE
     fzpac SUBCMD [KEYWORDS...]
@@ -75,15 +75,22 @@ KEY BINDINGS
 
 ### Dependence
 
-Requires `fzf`.
+Requires `fzf`, `sk` or your favorite fuzzy finder, but recommended one is `fzf` or `sk` to use full features.
 
 <a href="https://github.com/junegunn/fzf">junegunn/fzf</a>
+<a href="https://https://github.com/lotabout/skim">lotabout/skim</a>
 
-If `fzf` is not installed, install it with the following command:
+If `fzf` or `sk` is not installed, install it with the following command:
 
 ```bash
 sudo pacman -S fzf
+
+# or
+
+sudo pacman -S sk
 ```
+
+If you want to use other fuzzy finder, see 'FZPAC_FINDER' section in Configuration.
 
 ### Optional
 
@@ -163,7 +170,9 @@ cd fzpac
 sudo make install
 ```
 
-## Configuration
+## Configurations
+
+### FZPAC_PACMAN
 
 To change the AUR helper command to use, run fzpac with the value of the `"${FZPAC_PACMAN}"` variable set.
 
@@ -175,6 +184,22 @@ To always use this setting, add the following line to your `~/.bashrc` or other 
 
 ```bash
 export FZPAC_PACMAN="some-aur-helper-command"
+```
+
+### FZPAC_FINDER
+
+To change the fuzzy finder which is used in fzpac, set the `"${FZPAC_FINDER}"` variable.
+
+This value is colon separated list like a `"${PATH}"` variable, elements are but commands not directories. fzpac trys to use each of commands in `"${FZPAC_FINDER}"` in turn as fuzzy finder to find packages. So fallback to following commands if preceding one isn't found.
+
+If no `"${FZPAC_FINDER}"` is set or empty, fzpac assumes the value is 'fzf:sk:peco:gof:fzy'.
+
+```bash
+# Elements are command name or path.
+FZPAC_FINDER="finder1:/path/to/finder2:..." fzpac ...
+
+# Precede your favorite fuzzy finder if you want to give priority to it.
+FZPAC_FINDER="sk:fzf:..." fzpac ...
 ```
 
 ## Contribution

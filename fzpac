@@ -13,6 +13,7 @@ readonly PACMAN_LIST=(
 	"yay"
 	"pacman"
 )
+readonly FZPAC_FINDER="${FZPAC_FINDER:-fzf:sk:peco:gof:fzy}"
 readonly STYLE_BOLD=$'\033[1m'
 readonly STYLE_UNDERBAR=$'\033[4m'
 readonly STYLE_RESET=$'\033[m'
@@ -37,7 +38,7 @@ EOF
 
 _help() {
 	cat <<EOF
-${THIS_CMD} -- Arch Linux package finder with fzf
+${THIS_CMD} -- Arch Linux package finder with fuzzy finder
 
 ${STYLE_BOLD}USAGE${STYLE_RESET}
     ${THIS_CMD} ${STYLE_UNDERBAR}SUBCMD${STYLE_RESET} [${STYLE_UNDERBAR}KEYWORDS...${STYLE_RESET}]
@@ -73,7 +74,8 @@ _main() {
 		exit 1
 	fi
 
-	_test_cmd fzf || return 1
+	local finder
+	finder="$(_finder)"
 
 	local pac
 	pac="$(_pacman)"
@@ -82,19 +84,19 @@ _main() {
 		case "${arg}" in
 		s | search)
 			shift
-			_search "${pac}" "${@}"
+			_search "${pac}" "${finder}" "${@}"
 			break
 			;;
 		l | local)
 			shift
-			_search_local "${pac}" "${@}"
+			_search_local "${pac}" "${finder}" "${@}"
 			break
 			;;
 		S | install)
 			shift
 			local pkgs
 			pkgs=(
-				"$(_search "${pac}" "${@}")"
+				"$(_search "${pac}" "${finder}" "${@}")"
 			)
 			_install "${pac}" "${pkgs[@]}"
 			break
@@ -103,7 +105,7 @@ _main() {
 			shift
 			local pkgs
 			pkgs=(
-				"$(_search_local "${pac}" "${@}")"
+				"$(_search_local "${pac}" "${finder}" "${@}")"
 			)
 			_remove "${pac}" "${pkgs[@]}"
 			break
@@ -112,7 +114,7 @@ _main() {
 			shift
 			local pkgs
 			pkgs=(
-				"$(_search_no_deps "${pac}" "${@}")"
+				"$(_search_no_deps "${pac}" "${finder}" "${@}")"
 			)
 			_remove "${pac}" "${pkgs[@]}"
 			break
@@ -134,13 +136,8 @@ _main() {
 	done
 }
 
-_test_cmd() {
-	for cmd in "${@}"; do
-		if ! command -v "${cmd}" &>/dev/null; then
-			_err "${cmd} is not installed. please install it."
-			return 1
-		fi
-	done
+_has() {
+	command -v "${1}" &>/dev/null
 }
 
 _pacman() {
@@ -160,8 +157,72 @@ _pacman() {
 	exit 1
 }
 
-_fzf() {
-	env LANG=C fzf "${@}"
+# 'Fuzzy finder' finder. Exit process if no fuzzy finder is found.
+_finder() {
+	for f in ${FZPAC_FINDER/:/ }; do
+		if _has "${f}"; then
+			echo "${f}"
+			return 0
+		fi
+	done
+
+	if [[ "${FZPAC_FINDER}" == *:* ]]; then
+		_err "${FZPAC_FINDER/:/, } aren't found."
+	else
+		_err "${FZPAC_FINDER} isn't found."
+	fi
+
+	exit 1
+}
+
+# A simple abstraction between multiple fuzzy finders. This takes fuzzy finder
+# and the options as arguments, then select only supported them by the finder
+# and run the finder with selected options.
+#
+# Arguments
+#   1: Fuzzy finder name or path
+#   2-: Options for fuzzy finder
+#
+# Any options which aren't below are not supported and ignored.
+#
+# Supported options for fzf and sk:
+# - --multi
+# - --header STR
+# - --preview COMMAND
+# - --bind KEYBINDS
+_fuzzyfinder() {
+	local -r finder="${1}"
+	shift
+
+	local -a args=()
+
+	if [[ "${finder}" =~ (fzf|sk) ]]; then
+		while (($#)); do
+			case "${1}" in
+			-m | --multi)
+				args+=(--multi)
+				shift
+				;;
+			--header)
+				args+=(--header "${2}")
+				shift 2
+				;;
+			--preview)
+				args+=(--preview "${2}")
+				shift 2
+				;;
+			--bind)
+				args+=(--bind "${2}")
+				shift 2
+				;;
+			*)
+				shift
+				;;
+			esac
+		done
+	fi
+
+	env LANG=C "${finder}" "${args[@]}"
 }
 
 _err() {
@@ -172,12 +233,14 @@ _search() {
 	readonly HEADER="<C-s>: show package info"
 
 	local pac="${1}"
-	shift
+	local finder="${2}"
+	shift 2
 
 	export -f _show_info
 
 	"${pac}" --sync --search --quiet "${@}" |
-		_fzf \
+		_fuzzyfinder \
+			"${finder}" \
 			--multi \
 			--header "${HEADER}" \
 			--preview "_show_info ${pac} {}" \
@@ -188,12 +251,14 @@ _search_local() {
 	readonly HEADER="<C-s>: show package info"
 
 	local pac="${1}"
-	shift
+	local finder="${2}"
+	shift 2
 
 	export -f _show_info_local
 
 	"${pac}" --query --search --quiet "${@}" |
-		_fzf \
+		_fuzzyfinder \
+			"${finder}" \
 			--multi \
 			--header "${HEADER}" \
 			--preview "_show_info_local ${pac} {}" \
@@ -204,12 +269,14 @@ _search_no_deps() {
 	readonly HEADER="<C-s>: show package info"
 
 	local pac="${1}"
-	shift
+	local finder="${2}"
+	shift 2
 
 	export -f _show_info_local
 
 	"${pac}" --query --deps --unrequired --quiet "${@}" |
-		_fzf \
+		_fuzzyfinder \
+			"${finder}" \
 			--multi \
 			--header "${HEADER}" \
 			--preview "_show_info_local ${pac} {}" \
