@@ -7,12 +7,7 @@ SHELL="$(which bash)"
 readonly SHELL
 
 readonly THIS_CMD="${0##*/}"
-readonly PACMAN="${FZPAC_PACMAN:-pacman}"
-readonly PACMAN_LIST=(
-	"paru"
-	"yay"
-	"pacman"
-)
+readonly FZPAC_PACMAN="${FZPAC_PACMAN:-paru:yay:pacman}"
 readonly FZPAC_FINDER="${FZPAC_FINDER:-fzf:sk:peco:gof:fzy}"
 readonly STYLE_BOLD=$'\033[1m'
 readonly STYLE_UNDERBAR=$'\033[4m'
@@ -141,19 +136,18 @@ _has() {
 }
 
 _pacman() {
-	if [ ! "${PACMAN}" = "pacman" ]; then
-		echo -n "${PACMAN}"
-		return 0
-	fi
-
-	for pac in "${PACMAN_LIST[@]}"; do
-		if command -v "${pac}" &>/dev/null; then
+	for pac in ${FZPAC_PACMAN//:/ }; do
+		if _has "${pac}"; then
 			echo -n "${pac}"
 			return 0
 		fi
 	done
 
-	_err 'The command for pacman or AUR helper was not found.'
+	if [[ "${FZPAC_PACMAN}" == *:* ]]; then
+		_err "${FZPAC_PACMAN//:/, } aren't found."
+	else
+		_err "${FZPAC_PACMAN} isn't found."
+	fi
 	exit 1
 }
 
