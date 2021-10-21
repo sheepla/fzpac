@@ -180,6 +180,8 @@ This value is a colon-separated list like a `"${PATH}"` variable, elements are b
 
 If no `"${FZPAC_PACMAN}"` is set or empty, fzpac assumes the value is 'paru:yay:pacman'.
 
+Note that fzpac assumes commands in `"${FZPAC_PACMAN}"` supports pacman compatible arguments. So maybe fzpac doesn't work as expected if the commands don't support them.
+
 ```bash
 # Elements are command name or path.
 FZPAC_PACMAN="aur-helper1:/path/to/aur-helper2:..." fzpac ...
