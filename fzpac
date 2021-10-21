@@ -3,7 +3,7 @@
 set -o errexit
 set -o nounset
 
-SHELL="$(which bash)"
+SHELL="$(type -P bash)"
 readonly SHELL
 
 readonly THIS_CMD="${0##*/}"
