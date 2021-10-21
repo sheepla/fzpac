@@ -159,7 +159,7 @@ _pacman() {
 
 # 'Fuzzy finder' finder. Exit process if no fuzzy finder is found.
 _finder() {
-	for f in ${FZPAC_FINDER/:/ }; do
+	for f in ${FZPAC_FINDER//:/ }; do
 		if _has "${f}"; then
 			echo "${f}"
 			return 0
@@ -167,7 +167,7 @@ _finder() {
 	done
 
 	if [[ "${FZPAC_FINDER}" == *:* ]]; then
-		_err "${FZPAC_FINDER/:/, } aren't found."
+		_err "${FZPAC_FINDER//:/, } aren't found."
 	else
 		_err "${FZPAC_FINDER} isn't found."
 	fi
