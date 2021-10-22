@@ -86,9 +86,7 @@ If `fzf` or `sk` is not installed, install it with the following command:
 
 ```bash
 sudo pacman -S fzf
-
 # or
-
 sudo pacman -S sk
 ```
 
@@ -148,7 +146,7 @@ compinit -u
 
 ### Install with PKGBUILD (Recommend)
 
-Run below if you want to install the latest slable version with `PKGBUILD` .
+Run below if you want to install the latest stable version with `PKGBUILD` .
 After a successful installation, you can manage `fzpac` as an Arch Linux package.
 
 ```bash
@@ -206,4 +204,4 @@ FZPAC_FINDER="sk:fzf:..." fzpac ...
 
 ## Contribution
 
-Issue & PR is welcome!❤
+Issue or PR is welcome!❤
