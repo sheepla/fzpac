@@ -148,7 +148,7 @@ compinit -u
 
 ### Install with PKGBUILD (Recommend)
 
-Run below if you want to install `fzpac` with `PKGBUILD`.
+Run below if you want to install the latest slable version with `PKGBUILD` .
 After a successful installation, you can manage `fzpac` as an Arch Linux package.
 
 ```bash
@@ -164,7 +164,7 @@ makepkg -si
 
 ### Install from the latest commit
 
-Run below if you want to install `fzpac`
+Run below if you want to install the latest commit version.
 
 ```bash
 git clone https://github.com/sheepla/fzpac
