@@ -7,7 +7,7 @@
 
 <div align="center">
     
-`fzpac` is a `pacman` wrapper, an Arch Linux package finder with `fuzzy finder`.
+`fzpac` is a `pacman` wrapper, an Arch Linux package finder with fuzzy finder.
 
 </div>
 
@@ -19,13 +19,15 @@
 
 ## Features
 
-- [x] Quickly find the packages you are looking for with fuzzy search and preview.
-- [x] Uses easy-to-use APT-like subcommands
-- [x] You can immediately install / uninstall the packages that you selected.
-- [x] Supports Tab completion in multiple shells
+- [x] Quickly find the packages you are looking for with **fuzzy search and preview**.
+- [x] Uses easy-to-use **APT-like subcommands**.
+- [x] You can immediately **install** / **uninstall** the packages that you selected.
+- [x] Supports **Tab completion** in multiple shells.
     - `bash` (`bash-completion` package required)
     - `fish`
     - `zsh` (`zsh-completions` package required)
+- [x] Supports **multiple AUR helpers** such as [paru](https://github.com/Morganamilo/paru) and [yay](https://github.com/Jguer/yay) .
+- [x] Supports **multiple fuzzy finders** such as [fzf](https://github.com/junegunn/fzf) and [skim](https://https://github.com/lotabout/skim) .
 
 ## Try fzpac
 
@@ -38,7 +40,7 @@ curl -LO git.io/fzpac && chmod +x fzpac
 ## Usage
 
 1. Run this command
-2. Select the packages with `fuzzy finder`
+2. Select the packages with fuzzy finder
 3. You can view the package info or install / uninstall it immediately
 
 ### Help Message
