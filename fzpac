@@ -216,7 +216,7 @@ _fuzzyfinder() {
 		done
 	fi
 
-	env LANG=C "${finder}" "${args[@]}"
+	LANG=C "${finder}" "${args[@]}"
 }
 
 _err() {
@@ -282,9 +282,9 @@ _show_info() {
 	local pkg="${2}"
 	shift 1
 
-	env LANG=C "${pac}" --sync --search --color=always "^${pkg}$"
+	LANG=C "${pac}" --sync --search --color=always "^${pkg}$"
 	echo ""
-	env LANG=C "${pac}" --sync --info --color=always "${pkg}"
+	LANG=C "${pac}" --sync --info --color=always "${pkg}"
 }
 
 _show_info_local() {
@@ -292,9 +292,9 @@ _show_info_local() {
 	local pkg="${2}"
 	shift 1
 
-	env LANG=C "${pac}" --query --search --color=always "^${pkg}$"
+	LANG=C "${pac}" --query --search --color=always "^${pkg}$"
 	echo ""
-	env LANG=C "${pac}" --query --info --list --color=always "${pkg}"
+	LANG=C "${pac}" --query --info --list --color=always "${pkg}"
 }
 
 _install() {
