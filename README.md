@@ -55,7 +55,7 @@ USAGE
 SUBCMD
     s, search        search for all available packages
     l, local         search for already installed packages
-    s, install       select packages and INSTALL it
+    S, install       select packages and INSTALL it
     R, remove        select packages and UNINSTALL it
     A, autoremove    select packages that are no longer needed and UNINSTALL it.
     h, help          show help message
