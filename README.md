@@ -90,7 +90,7 @@ sudo pacman -S fzf
 sudo pacman -S sk
 ```
 
-If you want to use other fuzzy finder, see 'FZPAC_FINDER' section in Configuration.
+If you want to use other fuzzy finder, see **FZPAC_FINDER** section in Configuration.
 
 ### Optional
 
@@ -178,7 +178,7 @@ To change the AUR helper command to use, run fzpac with the value of the `"${FZP
 
 This value is a colon-separated list like a `"${PATH}"` variable, elements are but commands not directories. fzpac tries to use each of the commands in `"${FZPAC_PACMAN}"` in turn as a pacman command to find packages. So fallback to following commands if the preceding one isn't found.
 
-If no `"${FZPAC_PACMAN}"` is set or empty, fzpac assumes the value is 'paru:yay:pacman'.
+If no `"${FZPAC_PACMAN}"` is set or empty, fzpac assumes the value is `paru:yay:pacman`.
 
 Note that fzpac assumes commands in `"${FZPAC_PACMAN}"` supports pacman compatible arguments. So maybe fzpac doesn't work as expected if the commands don't support them.
 
@@ -200,7 +200,7 @@ export FZPAC_PACMAN="aur-helper1:/path/to/aur-helper2:..."
 
 Almost the same as `"${FZPAC_PACMAN}"`, but this is to config the fuzzy finder which is used in fzpac.
 
-If no `"${FZPAC_FINDER}"` is set or empty, fzpac assumes the value is 'fzf:sk:peco:gof:fzy'.
+If no `"${FZPAC_FINDER}"` is set or empty, fzpac assumes the value is `fzf:sk:peco:gof:fzy` .
 
 ## Contribution
 
