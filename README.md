@@ -6,7 +6,7 @@
 </div>
 
 <div align="center">
-    
+
 `fzpac` is a `pacman` wrapper, an Arch Linux package finder with fuzzy finder.
 
 </div>
@@ -176,31 +176,31 @@ sudo make install
 
 To change the AUR helper command to use, run fzpac with the value of the `"${FZPAC_PACMAN}"` variable set.
 
+This value is a colon-separated list like a `"${PATH}"` variable, elements are but commands not directories. fzpac tries to use each of the commands in `"${FZPAC_PACMAN}"` in turn as a pacman command to find packages. So fallback to following commands if the preceding one isn't found.
+
+If no `"${FZPAC_PACMAN}"` is set or empty, fzpac assumes the value is 'paru:yay:pacman'.
+
+Note that fzpac assumes commands in `"${FZPAC_PACMAN}"` supports pacman compatible arguments. So maybe fzpac doesn't work as expected if the commands don't support them.
+
 ```bash
-FZPAC_PACMAN="some-aur-helper-command" fzpac ...
+# Elements are command name or path.
+FZPAC_PACMAN="aur-helper1:/path/to/aur-helper2:..." fzpac ...
+
+# Precede your favorite AUR helper if you want to give priority to it.
+FZPAC_FINDER="yay:paru:..." fzpac ...
 ```
 
 To always use this setting, add the following line to your `~/.bashrc` or other shell rc file
 
 ```bash
-export FZPAC_PACMAN="some-aur-helper-command"
+export FZPAC_PACMAN="aur-helper1:/path/to/aur-helper2:..."
 ```
 
 ### FZPAC_FINDER
 
-To change the fuzzy finder which is used in fzpac, set the `"${FZPAC_FINDER}"` variable.
-
-This value is colon separated list like a `"${PATH}"` variable, elements are but commands not directories. fzpac trys to use each of commands in `"${FZPAC_FINDER}"` in turn as fuzzy finder to find packages. So fallback to following commands if preceding one isn't found.
+Almost the same as `"${FZPAC_PACMAN}"`, but this is to config the fuzzy finder which is used in fzpac.
 
 If no `"${FZPAC_FINDER}"` is set or empty, fzpac assumes the value is 'fzf:sk:peco:gof:fzy'.
-
-```bash
-# Elements are command name or path.
-FZPAC_FINDER="finder1:/path/to/finder2:..." fzpac ...
-
-# Precede your favorite fuzzy finder if you want to give priority to it.
-FZPAC_FINDER="sk:fzf:..." fzpac ...
-```
 
 ## Contribution
 
