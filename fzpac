@@ -14,7 +14,7 @@ readonly STYLE_UNDERBAR=$'\033[4m'
 readonly STYLE_RESET=$'\033[m'
 
 _version() {
-	readonly VERSION='2.0.2'
+	readonly VERSION='2.0.5'
 	readonly AUTHOR="sheepla"
 	readonly LICENSE="MIT"
 	readonly GITHUB_URL="https://github.com"
