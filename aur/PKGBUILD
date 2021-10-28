@@ -1,7 +1,7 @@
 # Maintainer sheepla <hk7g9x43 at anonaddy.me>
 
 pkgname=fzpac
-pkgver=2.0.4
+pkgver=2.0.5
 pkgrel=1
 pkgdesc="Arch Linux package finder with fzf"
 arch=("any")
@@ -27,7 +27,7 @@ install=
 changelog=
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
 noextract=()
-sha256sums=("98bba32803cd961c58e7b49d7871dd930d82a67bb6108d79d44f892cb66f0f3f")
+sha256sums=("ef2f8cac36ac8270b5f08169865d3998f8cb68ebf5e252623e5be36ad0c92cfe")
 
 package() {
     cd "${srcdir}/${pkgname}-${pkgver}"
