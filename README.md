@@ -13,9 +13,9 @@
 
 ## Demo
 
-> [https://asciinema.org/a/432854](https://asciinema.org/a/432854)
-
-[![asciicast](https://asciinema.org/a/432854.svg)](https://asciinema.org/a/432854)
+<div align="center">
+<img src="https://user-images.githubusercontent.com/62412884/146584731-6b68fc92-55c7-4936-a551-0c533e62f507.gif" width="80%">
+</div>
 
 ## Features
 
